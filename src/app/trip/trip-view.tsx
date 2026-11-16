@@ -1,22 +1,13 @@
 "use client";
 
-import { format } from "date-fns";
-import { useSearchParams } from "next/navigation";
-import { Suspense, use, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { use } from "react";
 import { BrowseRow, DayColumn, TripHeader, type DaySlot, type DayStop } from "@/components/andiamo";
-import { fromSearchParams } from "@/lib/plan/settings";
-import type { TripSettings } from "@/lib/plan/types";
-import type { Plan, Slot, Stop } from "@/lib/plan/types";
+import type { PlanResult } from "@/lib/plan/plan-trip";
+import type { Slot, Stop } from "@/lib/plan/types";
 import type { PlaceView } from "@/lib/plan/view";
-import { TripLoading } from "./trip-loading";
 import { TripWait } from "./trip-wait";
 import { formatClock, plusDays, shortDate } from "@/lib/time";
-
-interface PlanResponse {
-  plan: Plan;
-  places: Record<string, PlaceView>;
-  source: "ai" | "fallback";
-}
 
 const SLOT_LABEL: Record<Slot, DaySlot["label"]> = {
   morning: "Morning",
@@ -27,53 +18,16 @@ const SLOT_LABEL: Record<Slot, DaySlot["label"]> = {
 };
 const SLOT_ORDER: Slot[] = ["morning", "lunch", "afternoon", "dinner", "evening"];
 
-type PlanResult = { data?: PlanResponse; error?: string; retryAfterSeconds?: number };
-
 /**
- * One request per trip, cached so every render reads the same promise: `use` needs a stable promise, React renders
- * twice in development, and each request is a paid model call. Failures resolve to `{ error }` rather than
- * rejecting, so the page shows its own wait or error screen instead of an error boundary; Try again drops the
- * failed entry so the next render asks again.
+ * Renders the plan the trip page started on the server. `result` streams in; until it resolves, the surrounding
+ * Suspense boundary shows the loading screen. Failures arrive as `{ error }`, so they get the wait or error screen,
+ * and Try again re-runs the server render.
  */
-const plans = new Map<string, Promise<PlanResult>>();
-
-function requestPlan(key: string, settings: TripSettings, notes: string): Promise<PlanResult> {
-  let request = plans.get(key);
-  if (!request) {
-    request = fetch("/api/plan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ settings, notes }) })
-      .then(async (res): Promise<PlanResult> => {
-        if (res.ok) return { data: (await res.json()) as PlanResponse };
-        const body = (await res.json().catch(() => ({}))) as { error?: string; retryAfterSeconds?: number };
-        return { error: body.error ?? "The planner didn't answer", retryAfterSeconds: res.status === 429 ? (body.retryAfterSeconds ?? 60) : undefined };
-      })
-      .catch((): PlanResult => ({ error: "Couldn't reach the planner" }));
-    plans.set(key, request);
-  }
-  return request;
-}
-
-export function TripView() {
-  const params = useSearchParams();
-  const { settings, notes } = useMemo(() => fromSearchParams(params, format(new Date(), "yyyy-MM-dd")), [params]);
-  const key = params.toString();
-  // Bumped by Try again (or the end of a rate-limit wait) to render again after the failed request is dropped.
-  const [attempt, setAttempt] = useState(0);
-  const retry = () => {
-    plans.delete(key);
-    setAttempt((n) => n + 1);
-  };
-
-  return (
-    <Suspense fallback={<TripLoading hub={settings.hub} />}>
-      <TripPlan plan={requestPlan(key, settings, notes)} retryKey={`${key}#${attempt}`} onRetry={retry} />
-    </Suspense>
-  );
-}
-
-function TripPlan({ plan: request, retryKey, onRetry }: { plan: Promise<PlanResult>; retryKey: string; onRetry: () => void }) {
-  const result = use(request);
-  if (result.error || !result.data) {
-    return <TripWait key={retryKey} retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={onRetry} />;
+export function TripView({ result: pending }: { result: Promise<PlanResult> }) {
+  const router = useRouter();
+  const result = use(pending);
+  if ("error" in result) {
+    return <TripWait retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={() => router.refresh()} />;
   }
 
   const { plan, places } = result.data;
