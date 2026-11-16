@@ -1,0 +1,19 @@
+{
+  "decision": "REVERT",
+  "against": "baseline",
+  "prompt_sha": "45c50ae959dad342",
+  "report": [
+    "checks    test -0.192 (floor 0.204)  train -0.111 (floor 0.218)",
+    "rubric    test -0.141 (floor 0.038)  train -0.019 (floor 0.056)",
+    "grounded  test -0.003 (floor 0.038)  train +0.000 (floor 0.056)",
+    "style     test +0.332 (floor 0.208)  train +0.336 (floor 0.282)",
+    "specific  test +0.000 (floor 0.038)  train +0.004 (floor 0.056)"
+  ],
+  "fail": [
+    "checks went down on test",
+    "rubric went down on test beyond noise",
+    "none of checks, rubric or grounded improved on test beyond noise"
+  ],
+  "won": [],
+  "decided_by": "evals/select-places/compare.mjs"
+}

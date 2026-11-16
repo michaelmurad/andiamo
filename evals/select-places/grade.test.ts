@@ -24,17 +24,15 @@ const call = (output: SelectCall["output"], stopReason: SelectCall["stopReason"]
 function oracle(c: EvalCase): SelectCall["output"] {
   const k = c.constraints;
   const hub: Hub = c.settings.hub ?? k.hub_in?.[0] ?? "Rome";
-  const allowed = PLACES.filter(
-    (p) =>
-      p.hub === hub &&
-      p.autoPlan &&
-      !k.exclude_ids?.includes(p.id) &&
-      !k.exclude_types?.includes(p.type) &&
-      !p.tags.some((t) => k.exclude_tags?.includes(t)),
-  ).sort((a, b) => a.priceLevel - b.priceLevel); // cheapest first, for price-share cases
+  const excluded = (p: (typeof PLACES)[number]) =>
+    !!k.exclude_ids?.includes(p.id) || !!k.exclude_types?.includes(p.type) || p.tags.some((t) => k.exclude_tags?.includes(t));
+  const inHub = PLACES.filter((p) => p.hub === hub && p.autoPlan);
+  const allowed = inHub.filter((p) => !excluded(p)).sort((a, b) => a.priceLevel - b.priceLevel); // cheapest first, for price-share cases
   const first = allowed.filter((p) => k.include_any?.includes(p.id)).slice(0, 1);
   const picks = [...first, ...allowed.filter((p) => !first.includes(p))].slice(0, 10);
-  return { hub, picks: picks.map((p) => ({ id: p.id, reason: specificReason(p) })), avoid: [] };
+  // Exclusions are checked on the planned trip, so a perfect answer rules out every excluded place in the hub.
+  const avoid = inHub.filter(excluded).map((p) => ({ id: p.id, reason: "You asked for this" }));
+  return { hub, picks: picks.map((p) => ({ id: p.id, reason: specificReason(p) })), avoid };
 }
 
 /** "You get the <word>." using the first description word that makes the reason specific. */
@@ -125,11 +123,27 @@ describe("codeChecks fails what it should", () => {
     expect(isSpecific("Suits you: Colosseum.", place)).toBe(false);
   });
 
-  it("a museum on the no-museums trip fails constraints", () => {
-    const out = { ...good, picks: [...good.picks.slice(1), { id: "place_010", reason: "x" }] };
+  it("a museum the answer doesn't rule out fails constraints, because the trip plans it", () => {
+    const out = { ...good, picks: [...good.picks.slice(1), { id: "place_010", reason: "x" }], avoid: good.avoid.filter((a) => a.id !== "place_010") };
     const { grade, why } = codeChecks(c, call(out));
     expect(grade.constraints).toBe(0);
-    expect(why.constraints).toContain("Vatican Museums");
+    expect(why.constraints).toContain("planned a museum: Vatican Museums");
+  });
+
+  it("a museum both ranked and ruled out passes: the avoid list wins and the trip never plans it", () => {
+    const out = { ...good, picks: [...good.picks.slice(1), { id: "place_010", reason: "x" }] };
+    expect(codeChecks(c, call(out)).grade.constraints).toBe(1);
+  });
+
+  it("a must-include place ranked below the top 15 fails", () => {
+    const k = CASES.find((x) => x.id === "florence-art")!;
+    const best = oracle(k)!;
+    const must = new Set(k.constraints.include_any);
+    const rest = PLACES.filter((p) => p.hub === best.hub && p.autoPlan && !must.has(p.id)).map((p) => ({ id: p.id, reason: "x" }));
+    const mustHave = { id: [...must][0], reason: "x" };
+    const out = { ...best, picks: [...rest.slice(0, 15), mustHave] };
+    expect(out.picks.findIndex((p) => p.id === mustHave.id)).toBeGreaterThanOrEqual(15);
+    expect(codeChecks(k, call(out)).why.constraints).toMatch(/^top 15 has none of/);
   });
 });
 

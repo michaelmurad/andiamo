@@ -1,6 +1,6 @@
 # select-places eval cases (22)
 
-Generated from cases.yaml for review. All trips start Fri 14 May 2027, 3 days. Constraints are checked in code; rubric lines are marked true or false by a Sonnet 5.5 judge, which also checks every reason against the place's description (the grounded metric). Reason style (at most 14 words, second person) is checked in code.
+Generated from cases.yaml for review. All trips start Fri 14 May 2027, 3 days. Constraints are checked in code: exclusions on the trip the scheduler plans from the model's answer, preferences (must-include places, price share) on its top 15 picks. Rubric lines are marked true or false by a Sonnet 5.5 judge reading the top 15 picks, which also checks each of those reasons against the place's description (the grounded metric). Reason style (at most 14 words, second person) is checked in code.
 
 | id | tags | hub | interests | other settings | notes | code constraints | judge rubric |
 |---|---|---|---|---|---|---|---|

@@ -5,12 +5,14 @@
 #   tags        first tag is the group in the report; the rest are labels
 #   settings    overrides on top of `defaults` below
 #   notes       the free-text box on the setup screen
-#   constraints checked in code, no model involved:
-#                 include_any: at least one of these ids is picked
-#                 exclude_ids / exclude_types / exclude_tags: none of the picks may have these
-#                 max_price_share: { level, share }: at least `share` of picks priced at or below `level`
+#   constraints checked in code, no model involved. The model ranks a whole hub and lists places to avoid, so
+#               exclusions are checked on the trip the scheduler plans from the answer, and preferences on the
+#               top 15 picks (grade.ts JUDGED_PICKS):
+#                 include_any: at least one of these ids is in the top 15
+#                 exclude_ids / exclude_types / exclude_tags: the planned trip has none of these
+#                 max_price_share: { level, share }: at least `share` of the top 15 priced at or below `level`
 #                 hub_in: the chosen hub is one of these (for "Pick for me")
-#   rubric      checkable statements a judge model marks true or false, given the picks and their reasons
+#   rubric      checkable statements a judge model marks true or false, given the top 15 picks and their reasons
 
 defaults:
   startDate: "2027-05-14"

@@ -4,8 +4,10 @@ import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 import { z } from "zod";
 import { parsePrompt, render } from "@/lib/ai/prompts";
-import { mentionsTiming, parseOutput, type SelectCall } from "@/lib/ai/select";
+import { mentionsTiming, parseOutput, toSelection, type SelectCall } from "@/lib/ai/select";
 import { PLACE_BY_ID, PLACES } from "@/lib/data/places";
+import type { Place } from "@/lib/data/types";
+import { schedule } from "@/lib/plan/schedule";
 import { HUBS, PLACE_TYPES } from "@/lib/data/types";
 import { TripSettingsSchema } from "@/lib/plan/settings";
 import type { TripSettings } from "@/lib/plan/types";
@@ -183,7 +185,8 @@ export function codeChecks(c: EvalCase, call: SelectCall) {
   const timing = picks.filter((p) => mentionsTiming(p.reason, PLACE_BY_ID.get(p.id)?.name)).map((p) => `${p.id}: "${p.reason}"`);
   set("no_timing", timing.length === 0, timing.join(" | "));
 
-  const broken = constraintFailures(c.constraints, places, hub);
+  const top = places.filter((p) => judged(call).some((j) => j.id === p.id));
+  const broken = constraintFailures(c.constraints, top, plannedPlaces(c, call), hub);
   set("constraints", broken.length === 0, broken.join("; "));
 
   // A share, not pass/fail: one long reason shouldn't score the same as fifteen.
@@ -204,22 +207,44 @@ export function codeChecks(c: EvalCase, call: SelectCall) {
   return { grade, why, hub };
 }
 
-function constraintFailures(k: Constraints, places: NonNullable<ReturnType<typeof PLACE_BY_ID.get>>[], hub: string): string[] {
-  const ids = new Set(places.map((p) => p.id));
+/**
+ * Exclusions (ids, types, tags) are checked on the trip the scheduler plans from this answer, because that is what
+ * the avoid list and the ranking decide and what the traveller sees. Preferences (a must-include place, a price
+ * share) are checked on the top of the ranking, which is the model's judgement of what matters most.
+ */
+function constraintFailures(k: Constraints, top: Place[], planned: Place[], hub: string): string[] {
+  const topIds = new Set(top.map((p) => p.id));
+  const plannedIds = new Set(planned.map((p) => p.id));
   const name = (id: string) => PLACE_BY_ID.get(id)?.name ?? id;
   const out: string[] = [];
-  if (k.include_any && !k.include_any.some((id) => ids.has(id))) out.push(`none of: ${k.include_any.map(name).join(", ")}`);
-  for (const id of k.exclude_ids ?? []) if (ids.has(id)) out.push(`picked excluded ${name(id)}`);
-  for (const p of places) if (k.exclude_types?.includes(p.type)) out.push(`picked a ${p.type}: ${p.name}`);
-  for (const p of places) for (const t of k.exclude_tags ?? []) if (p.tags.includes(t)) out.push(`picked ${t}: ${p.name}`);
+  if (k.include_any && !k.include_any.some((id) => topIds.has(id))) out.push(`top ${JUDGED_PICKS} has none of: ${k.include_any.map(name).join(", ")}`);
+  for (const id of k.exclude_ids ?? []) if (plannedIds.has(id)) out.push(`planned excluded ${name(id)}`);
+  for (const p of planned) if (k.exclude_types?.includes(p.type)) out.push(`planned a ${p.type}: ${p.name}`);
+  for (const p of planned) for (const t of k.exclude_tags ?? []) if (p.tags.includes(t)) out.push(`planned ${t}: ${p.name}`);
   if (k.max_price_share) {
-    const cheap = places.filter((p) => p.priceLevel <= k.max_price_share!.level).length;
-    const share = places.length ? cheap / places.length : 0;
-    if (share < k.max_price_share.share) out.push(`${Math.round(share * 100)}% at ≤${"€".repeat(k.max_price_share.level) || "free"}, need ${k.max_price_share.share * 100}%`);
+    const cheap = top.filter((p) => p.priceLevel <= k.max_price_share!.level).length;
+    const share = top.length ? cheap / top.length : 0;
+    if (share < k.max_price_share.share) out.push(`${Math.round(share * 100)}% of the top ${JUDGED_PICKS} at ≤${"€".repeat(k.max_price_share.level) || "free"}, need ${k.max_price_share.share * 100}%`);
   }
   if (k.hub_in && !k.hub_in.includes(hub as never)) out.push(`hub ${hub}`);
   return out;
 }
+
+/** The places the scheduler plans from this answer, through the same validation production uses. */
+function plannedPlaces(c: EvalCase, call: SelectCall): Place[] {
+  const selection = toSelection(c.settings, call);
+  if (!selection) return [];
+  const plan = schedule({ settings: { ...c.settings, hub: selection.hub }, places: PLACES, shortlist: selection.picks, avoid: selection.avoid });
+  return plan.days.flatMap((d) => d.stops.flatMap((s) => (s.placeId ? [PLACE_BY_ID.get(s.placeId)!] : [])));
+}
+
+/**
+ * How much of the ranking the judge reads: the old shortlist's size. The model now ranks a whole hub, but the top
+ * of the ranking is what it is answerable for in the rubric, and a baseline shortlist and a full ranking are then
+ * judged on the same number of picks. Every pick still gets the code checks (timing, style, specific).
+ */
+export const JUDGED_PICKS = 15;
+const judged = (call: SelectCall) => call.output!.picks.slice(0, JUDGED_PICKS);
 
 const VerdictsSchema = z.object({
   verdicts: z.array(z.object({ statement: z.number().int(), pass: z.boolean(), reason: z.string() })).min(1),
@@ -239,7 +264,7 @@ let client: Anthropic | undefined;
  * Throws (an error row, not a zero) if the verdicts don't line up with the statements and picks.
  */
 export async function judge(c: EvalCase, call: SelectCall, hub: string) {
-  const picks = call.output!.picks.map((p, i) => {
+  const picks = judged(call).map((p, i) => {
     const place = PLACE_BY_ID.get(p.id);
     if (!place) return `#${i + 1} ${p.id}: not in the dataset\n   Reason: ${p.reason}`;
     const price = place.priceLevel === 0 ? "free" : "€".repeat(place.priceLevel);
@@ -303,11 +328,11 @@ function lineUp(c: EvalCase, call: SelectCall, parsed: Verdicts) {
   const byStatement = new Map(parsed.verdicts.map((v) => [v.statement, v]));
   const verdicts = c.rubric.map((_, i) => byStatement.get(i + 1));
   if (verdicts.some((v) => !v)) return { error: `judge returned ${byStatement.size} verdicts for ${c.rubric.length} statements` };
-  const nPicks = call.output!.picks.length;
+  const nPicks = judged(call).length;
   const byRank = new Map(parsed.grounding.map((g) => [g.rank, g]));
-  const grounding = call.output!.picks.map((_, i) => byRank.get(i + 1));
+  const grounding = judged(call).map((_, i) => byRank.get(i + 1));
   if (grounding.some((g) => !g)) return { error: `judge graded grounding for ${byRank.size} of ${nPicks} picks` };
-  const unread = call.output!.picks.filter((p, i) => p.reason.trim() && grounding[i]!.claims.length === 0).length;
+  const unread = judged(call).filter((p, i) => p.reason.trim() && grounding[i]!.claims.length === 0).length;
   if (unread) return { error: `judge listed no claims for ${unread} non-empty reason(s)` };
   return { verdicts: verdicts.map((v) => v!), grounding: grounding.map((g) => g!) };
 }
@@ -321,11 +346,11 @@ function finish(
   parsed: Verdicts,
   { verdicts, grounding }: { verdicts: Verdicts["verdicts"]; grounding: Verdicts["grounding"] },
 ) {
-  const nPicks = call.output!.picks.length;
+  const nPicks = judged(call).length;
   // A pick is grounded when none of its factual claims is unsupported. Opinions are never held against it.
   const badClaims = grounding.map((g) => g.claims.filter((k) => k.kind === "fact" && k.status === "unsupported").map((k) => k.claim));
   const unsupported = badClaims.flatMap((claims, i) =>
-    claims.length ? [`#${i + 1} ${call.output!.picks[i].id}: ${claims.join("; ")}`] : [],
+    claims.length ? [`#${i + 1} ${judged(call)[i].id}: ${claims.join("; ")}`] : [],
   );
 
   const passed = verdicts.filter((v) => v.pass).length;
@@ -334,7 +359,7 @@ function finish(
     grounded: nPicks ? 1 - unsupported.length / nPicks : 0,
     groundingExplanation: unsupported.join("\n"),
     /** Per pick, in shortlist order: the judge's grounding call. Used by calibration. */
-    groundingByPick: badClaims.map((claims, i) => ({ id: call.output!.picks[i].id, supported: claims.length === 0, claim: claims.join("; ") })),
+    groundingByPick: badClaims.map((claims, i) => ({ id: judged(call)[i].id, supported: claims.length === 0, claim: claims.join("; ") })),
     explanation: verdicts.map((v, i) => `${v.pass ? "✓" : "✗"} ${c.rubric[i]} — ${v.reason}`).join("\n"),
     judge_model: model,
     judge_usage: usage,

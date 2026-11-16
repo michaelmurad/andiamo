@@ -116,7 +116,7 @@
     "src/lib/data/parse-hours.test.ts",
     "evals/select-places/feasibility.test.ts"
   ],
-  "harness_sha": "abf868a7c280568519a69237786e61b9c80def2645f9f0cafeb7917019904ed5",
+  "harness_sha": "f16113fa23fb94a026e3807e1ae5655e54a0a0a0ce7b91afe1d07127cfc70802",
   "train_ids": [
     "auto-food",
     "bologna-food",

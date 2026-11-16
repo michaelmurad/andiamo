@@ -1,20 +1,20 @@
 # select-places metrics
 
-Each case asks the model (prompts/select-places.yaml) for a hub and a ranked shortlist with reasons.
+Each case asks the model (prompts/select-places.yaml) for a hub, a ranking of the hub's suitable places with reasons, and a list of places the notes rule out. From prompt v4 (eval variant v2 of run 3) the ranking covers the whole hub; the judge reads its top 15 (grade.ts `JUDGED_PICKS`), the old shortlist's size, so shortlists and full rankings are judged on the same number of picks.
 
 | Metric | Kind | What it measures |
 |---|---|---|
 | `checks` | binary | All code checks pass (the six below). Headline. |
-| `rubric` | 0–1 | Share of the case's rubric statements a Sonnet 5.5 judge marks true. |
-| `grounded` | 0–1 | Share of picks whose reason makes no factual claim unsupported by the dataset (judge, per claim). Diet and access claims count as facts. |
+| `rubric` | 0–1 | Share of the case's rubric statements a Sonnet 5.5 judge marks true, reading the top 15 picks. |
+| `grounded` | 0–1 | Share of the top 15 picks whose reason makes no factual claim unsupported by the dataset (judge, per claim). Diet and access claims count as facts. |
 | `style` | 0–1 | Share of reasons that are non-empty, at most 14 words and second person (code). |
 | `specific` | 0–1 | Share of reasons that mention something distinctive from the place's description beyond its name (code). Counterweight to `grounded`, which alone would reward saying nothing. |
 | `valid_ids` | binary | Every id exists, is plannable, and appears once. |
 | `in_hub` | binary | Every pick belongs to the chosen hub. |
 | `hub_ok` | binary | The traveller's hub is kept; for "Pick for me", the hub is in the allowed set. |
-| `count_ok` | binary | 10–15 distinct picks. |
+| `count_ok` | binary | At least 10 distinct picks (or every place in the hub that isn't avoided, if fewer), and no more than the hub has. Before prompt v4: 10–15 picks. |
 | `no_timing` | binary | No reason promises a day, time or meal (words from the place's own name allowed). |
-| `constraints` | binary | The case's code-checked constraints hold (cases without constraints score 1). |
+| `constraints` | binary | The case's code-checked constraints hold (cases without constraints score 1). Exclusions are checked on the trip the scheduler plans from the answer (avoid list applied); must-include places and price share on the top 15 picks. Before this change, all on the shortlist. |
 
 A timeout, refusal or truncated response scores 0 on every metric: in production each one means the traveller
 silently gets a plan with no AI picks. Invalid or cut-off JSON counts the same way. Judge failures (bad or
