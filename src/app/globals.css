@@ -14,3 +14,37 @@
 [data-theme="dark"] {
   color-scheme: dark;
 }
+
+/* The agent at work: the ask bar while a change is on its way. Colours are tokens; andiamo.css is generated
+   and holds no motion, so the keyframes live here. Reduced motion keeps the words and drops the movement. */
+@keyframes an-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+@keyframes an-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+@keyframes an-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: .6; }
+}
+.an-ask-form.is-pending { position: relative; overflow: hidden; }
+.an-ask-progress { position: absolute; inset: auto 0 0 0; height: 3px; overflow: hidden; }
+.an-ask-progress::before {
+  content: ""; position: absolute; inset: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, var(--brand), transparent);
+  animation: an-sweep 1.2s ease-in-out infinite;
+}
+.an-ask-shimmer {
+  flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 500;
+  color: transparent; background: linear-gradient(90deg, var(--ink-muted) 30%, var(--ink) 50%, var(--ink-muted) 70%) 0 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  animation: an-shimmer 1.6s linear infinite;
+}
+.an-ask-form.is-pending .an-ask-spark { animation: an-breathe 1.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .an-ask-progress::before, .an-ask-shimmer, .an-ask-form.is-pending .an-ask-spark, .an-ask-send .animate-spin { animation: none; }
+  .an-ask-progress::before { width: 100%; opacity: .5; }
+  .an-ask-shimmer { color: var(--ink-muted); background: none; }
+}

@@ -13,6 +13,7 @@ const TRIP = "/trip?start=2027-05-14&days=3&hub=Rome&pace=balanced&likes=food,ar
 const ask = (page: Page) => page.getByRole("textbox", { name: "Ask for a change" });
 const stopTitles = (page: Page) => page.locator("article.an-stop h3").allTextContents();
 const changed = (page: Page) => page.locator("article.an-stop.is-changed");
+const undoBar = (page: Page) => page.locator(".an-undo");
 
 async function openTrip(page: Page) {
   await page.goto(TRIP);
@@ -67,7 +68,7 @@ test("an edit marks what changed, and Undo puts the plan back", async ({ page })
   });
 
   await page.getByRole("button", { name: "More food" }).click();
-  await expect(page.getByRole("status")).toContainText(`Removed ${gone} from day 1.`);
+  await expect(undoBar(page)).toContainText(`Removed ${gone} from day 1.`);
   expect(sent[0].message).toBe("More food");
   expect(sent[0].plan.days).toHaveLength(3);
   expect(await stopTitles(page)).not.toContain(gone);
@@ -77,7 +78,7 @@ test("an edit marks what changed, and Undo puts the plan back", async ({ page })
   await page.getByRole("button", { name: "Undo" }).click();
   expect(await stopTitles(page)).toEqual(before);
   await expect(changed(page)).toHaveCount(0);
-  await expect(page.getByRole("status")).toHaveCount(0);
+  await expect(undoBar(page)).toHaveCount(0);
 });
 
 test("the agent asks one question, and the answer goes back with the request", async ({ page }) => {
@@ -138,6 +139,47 @@ test("a refusal names the reason, and a failure can be retried", async ({ page }
   await page.getByRole("button", { name: "Rainy-day version" }).click();
   await expect(page.getByRole("group", { name: "The planner didn't answer" })).toBeVisible();
   await page.getByRole("button", { name: "Try again" }).click();
-  await expect(page.getByRole("status")).toContainText("Removed");
+  await expect(undoBar(page)).toContainText("Removed");
   expect(calls).toBe(3);
+});
+
+test("while a change is on its way the bar says so and the plan waits", async ({ page }) => {
+  await openTrip(page);
+  let release!: () => void;
+  const held = new Promise<void>((r) => (release = r));
+  await page.route("**/api/edit", async (route) => {
+    await held;
+    await route.fulfill({ json: removeFirst(route.request().postDataJSON().plan).json });
+  });
+
+  await page.getByRole("button", { name: "More food" }).click();
+  const form = page.locator("form.an-ask-form");
+  await expect(form).toHaveAttribute("aria-busy", "true");
+  await expect(form.getByRole("status")).toHaveText("Changing the plan");
+  await expect(form.getByRole("button", { name: "Changing the plan" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Cheaper" })).toHaveCount(0);
+
+  release();
+  await expect(undoBar(page)).toBeVisible();
+  await expect(form).toHaveAttribute("aria-busy", "false");
+  await expect(ask(page)).toBeEnabled();
+});
+
+test("the undo bar leaves after a while, unless it's pointed at; Changed marks stay", async ({ page }) => {
+  await page.clock.install();
+  await openTrip(page);
+  await stubEdit(page, ({ plan }) => ({ json: removeFirst(plan).json }));
+
+  await page.getByRole("button", { name: "More food" }).click();
+  await expect(undoBar(page)).toBeVisible();
+  await undoBar(page).hover();
+  await page.clock.fastForward(20_000);
+  await expect(undoBar(page)).toBeVisible();
+
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward(7_000);
+  await expect(undoBar(page)).toBeVisible();
+  await page.clock.fastForward(2_000);
+  await expect(undoBar(page)).toHaveCount(0);
+  await expect(changed(page)).toHaveCount(1);
 });

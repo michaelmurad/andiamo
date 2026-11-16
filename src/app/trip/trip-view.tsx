@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { use, useState, useTransition } from "react";
+import { use, useEffect, useState, useTransition } from "react";
 import { AgentQuestion, AskBar, BrowseRow, DayColumn, TripHeader, UndoBar } from "@/components/andiamo";
 import type { Answer, EditResponse } from "@/lib/ai/edit";
 import type { PlanResponse, PlanResult } from "@/lib/plan/plan-trip";
@@ -40,7 +40,10 @@ interface Shown {
   places: Record<string, PlaceView>;
 }
 
-/** The last edit, until the next one. */
+/** How long the undo bar stays up after an edit. Pointing at it or focusing it holds it there. */
+const UNDO_MS = 8_000;
+
+/** The last edit, until the next one or until the undo bar times out. */
 interface Undo {
   summary: string;
   previous: Shown;
@@ -63,6 +66,17 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
   const [notice, setNotice] = useState<Notice | null>(null);
   const [text, setText] = useState("");
   const [sending, startSending] = useTransition();
+  // Held for one edit only, so a bar that vanished under the pointer can't keep the next one up forever.
+  const [heldFor, setHeldFor] = useState<Undo | null>(null);
+
+  // The undo bar steps aside after a while. Only its own clock: the Changed marks stay until the next edit.
+  const undoShown = !!lastEdit && !notice && !sending;
+  const holdUndo = heldFor !== null && heldFor === lastEdit;
+  useEffect(() => {
+    if (!undoShown || holdUndo) return;
+    const timer = setTimeout(() => setLastEdit(null), UNDO_MS);
+    return () => clearTimeout(timer);
+  }, [undoShown, holdUndo, lastEdit]);
 
   const { plan, places } = shown;
 
@@ -108,7 +122,9 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
         title={plan.hub}
         meta={[`${shortDate(plan.settings.startDate)} – ${shortDate(last)}`, `${capitalize(plan.settings.pace)} pace`]}
       />
-      <div className="grid snap-x grid-flow-col auto-cols-[minmax(300px,1fr)] items-start gap-4 overflow-x-auto pb-2">
+      <div
+        className={`grid snap-x grid-flow-col auto-cols-[minmax(300px,1fr)] items-start gap-4 overflow-x-auto pb-2 transition-opacity duration-300 ${sending ? "opacity-60" : ""}`}
+      >
         {plan.days.map((day) => (
           <DayColumn
             key={day.date}
@@ -130,7 +146,16 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
         </section>
       )}
       <div className="sticky bottom-6 z-10 flex flex-col items-center gap-3" aria-live="polite">
-        {!notice && lastEdit && <UndoBar message={lastEdit.summary} onUndo={undo} />}
+        {undoShown && (
+          <div
+            onPointerEnter={() => setHeldFor(lastEdit)}
+            onPointerLeave={() => setHeldFor(null)}
+            onFocus={() => setHeldFor(lastEdit)}
+            onBlur={() => setHeldFor(null)}
+          >
+            <UndoBar message={lastEdit.summary} onUndo={undo} />
+          </div>
+        )}
         {notice?.kind === "ask" && (
           <AgentQuestion
             question={notice.question}
@@ -146,12 +171,12 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
         )}
         <AskBar
           suggestions={notice?.kind === "ask" || sending ? [] : suggestions}
-          placeholder={sending ? "Changing the plan" : "Ask for a change"}
+          pendingLabel="Changing the plan"
           value={text}
           onChange={setText}
           onSubmit={(message) => send(message)}
           onSuggestion={(message) => send(message)}
-          disabled={sending}
+          pending={sending}
         />
       </div>
     </>

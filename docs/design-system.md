@@ -10,7 +10,7 @@ The plan is the response, and the plan is made of places. Every place is shown w
 - **Places have faces.** Wherever a place appears (hub card, stop card, swap option, browse row, trip banner) it appears with a photo. Text-only lists of places are not allowed.
 - **Dense, not busy.** A stop card answers when, what, why, how long, how good and how much without opening anything. One line each, in a fixed order.
 - **One tap or one sentence.** Every change is a swap, an add, or a one-line ask.
-- **Changes are visible and reversible.** Anything the AI alters is marked `changed`, and an undo stays on screen until the next edit.
+- **Changes are visible and reversible.** Anything the AI alters is marked `changed` until the next edit, and an undo stays on screen for 8 seconds, longer while it's pointed at or focused.
 
 ## Voice
 
@@ -66,7 +66,8 @@ The plan is the response, and the plan is made of places. Every place is shown w
 - **Warning** (on a card): a `warning-tint` row at the foot of the card with icon and text.
 - **Can't add** (browse drawer): the Add button is replaced by the reason on `warning-tint`.
 - **Swapping**: tapping a stop card opens three alternatives in a popover anchored to it.
-- **Undo**: a bar above the ask bar, `ink` ground with `surface-raised` text, holding the AI's one sentence and Undo.
+- **Undo**: a bar above the ask bar, `ink` ground with `surface-raised` text, holding the AI's one sentence and Undo. It leaves after 8 seconds; pointing at it or focusing it holds it. The `changed` marks stay.
+- **Agent working**: while a change is on its way the ask bar says what it's doing ("Changing the plan") with a shimmer, `sparkles` breathes, send becomes a spinning `loader-circle`, a `brand` sweep runs along the bar's foot, and the plan dims to 60%. Reduced motion keeps the words and drops the movement.
 - **Loading the first plan**: show the banner and three column rails with card-shaped blocks in `surface-raised` and photo boxes in `surface-sunken`; never a spinner on a blank page.
 
 ## Iconography
