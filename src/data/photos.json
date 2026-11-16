@@ -1,0 +1,761 @@
+{
+  "places": {
+    "place_001": {
+      "src": "/photos/place_001-square.jpg",
+      "title": "Colosseum",
+      "page": "https://en.wikipedia.org/wiki/Colosseum",
+      "file": "Colosseo_2020.jpg",
+      "credit": "FeaturedPics",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg"
+    },
+    "place_002": {
+      "src": "/photos/place_002-square.jpg",
+      "title": "Trastevere",
+      "page": "https://en.wikipedia.org/wiki/Trastevere",
+      "file": "Santa_Maria_in_Trastevere_fountain.jpg",
+      "credit": "Jensens",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Santa_Maria_in_Trastevere_fountain.jpg"
+    },
+    "place_004": {
+      "src": "/photos/place_004-square.jpg",
+      "title": "Roman Forum",
+      "page": "https://en.wikipedia.org/wiki/Roman_Forum",
+      "file": "Foro_Romano_Musei_Capitolini_Roma.jpg",
+      "credit": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here are not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract.",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Foro_Romano_Musei_Capitolini_Roma.jpg"
+    },
+    "place_005": {
+      "src": "/photos/place_005-square.jpg",
+      "title": "Pantheon, Rome",
+      "page": "https://en.wikipedia.org/wiki/Pantheon%2C_Rome",
+      "file": "Pantheon_(Rome)_-_Right_side_and_front.jpg",
+      "credit": "NikonZ7II",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pantheon_(Rome)_-_Right_side_and_front.jpg"
+    },
+    "place_006": {
+      "src": "/photos/place_006-square.jpg",
+      "title": "Campo de' Fiori",
+      "page": "https://en.wikipedia.org/wiki/Campo_de'_Fiori",
+      "file": "Campo_dei_Fiori.jpg",
+      "credit": "Myrabella",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Campo_dei_Fiori.jpg"
+    },
+    "place_007": {
+      "src": "/photos/place_007-square.jpg",
+      "title": "Villa Borghese Pinciana",
+      "page": "https://en.wikipedia.org/wiki/Villa_Borghese_Pinciana",
+      "file": "Galleria_Borghese2.jpg",
+      "credit": "No machine-readable author provided. Carlomorino assumed (based on copyright claims).",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Galleria_Borghese2.jpg"
+    },
+    "place_008": {
+      "src": "/photos/place_008-square.jpg",
+      "title": "Piazza Navona",
+      "page": "https://en.wikipedia.org/wiki/Piazza_Navona",
+      "file": "Piazza_Navona_(Rome)_at_night.jpg",
+      "credit": "NikonZ7II",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_Navona_(Rome)_at_night.jpg"
+    },
+    "place_010": {
+      "src": "/photos/place_010-square.jpg",
+      "title": "Bramante Staircase",
+      "page": "https://en.wikipedia.org/wiki/Bramante_Staircase",
+      "file": "Vatican_Museums_Spiral_Staircase_Looking_Up_2012.jpg",
+      "credit": "Colin",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Vatican_Museums_Spiral_Staircase_Looking_Up_2012.jpg"
+    },
+    "place_011": {
+      "src": "/photos/place_011-square.jpg",
+      "title": "Giolitti",
+      "page": "https://en.wikipedia.org/wiki/Giolitti",
+      "file": "GiolittiCafeRoma.jpg",
+      "credit": "Chino at en.wikipedia",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:GiolittiCafeRoma.jpg"
+    },
+    "place_012": {
+      "src": "/photos/place_012-square.jpg",
+      "title": "Bocca della Verità",
+      "page": "https://en.wikipedia.org/wiki/Bocca_della_Verit%C3%A0",
+      "file": "Età_imperiale,_chiusino_a_forma_di_mascherone_di_divinità_fluviale,_detta_bocca_della_verità,_collocata_qui_nel_1632.jpg",
+      "credit": "Sailko",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Et%C3%A0_imperiale,_chiusino_a_forma_di_mascherone_di_divinit%C3%A0_fluviale,_detta_bocca_della_verit%C3%A0,_collocata_qui_nel_1632.jpg"
+    },
+    "place_014": {
+      "src": "/photos/place_014-square.jpg",
+      "title": "Villa del Priorato di Malta",
+      "page": "https://en.wikipedia.org/wiki/Villa_del_Priorato_di_Malta",
+      "file": "Aventino_s_Maria_del_Priorato_villa_dal_giardino_1050419.JPG",
+      "credit": "Lalupa",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Aventino_s_Maria_del_Priorato_villa_dal_giardino_1050419.JPG"
+    },
+    "place_016": {
+      "src": "/photos/place_016-square.jpg",
+      "title": "Palatine Hill",
+      "page": "https://en.wikipedia.org/wiki/Palatine_Hill",
+      "file": "Palatine_Hill_from_across_the_Circus_Maximus_April_2019.jpg",
+      "credit": "Lil Herodotus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Palatine_Hill_from_across_the_Circus_Maximus_April_2019.jpg"
+    },
+    "place_017": {
+      "src": "/photos/place_017-square.jpg",
+      "title": "Castel Sant'Angelo",
+      "page": "https://en.wikipedia.org/wiki/Castel_Sant'Angelo",
+      "file": "Castel_Sant'Angelo_at_Night.jpg",
+      "credit": "Livioandronico2013",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Castel_Sant%27Angelo_at_Night.jpg"
+    },
+    "place_018": {
+      "src": "/photos/place_018-square.jpg",
+      "title": "Trevi Fountain",
+      "page": "https://en.wikipedia.org/wiki/Trevi_Fountain",
+      "file": "Trevi_Fountain_-_Roma.jpg",
+      "credit": "NikonZ7II",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Trevi_Fountain_-_Roma.jpg"
+    },
+    "place_019": {
+      "src": "/photos/place_019-square.jpg",
+      "title": "Spanish Steps",
+      "page": "https://en.wikipedia.org/wiki/Spanish_Steps",
+      "file": "Piazza_di_Spagna_(Rome)_0004.jpg",
+      "credit": "Arnaud 25",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_di_Spagna_(Rome)_0004.jpg"
+    },
+    "place_021": {
+      "src": "/photos/place_021-square.jpg",
+      "title": "Appian Way",
+      "page": "https://en.wikipedia.org/wiki/Appian_Way",
+      "file": "Paesaggio_dell'Appia_antica.jpg",
+      "credit": "LuisaV72",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Paesaggio_dell%27Appia_antica.jpg"
+    },
+    "place_023": {
+      "src": "/photos/place_023-square.jpg",
+      "title": "Piazza del Popolo",
+      "page": "https://en.wikipedia.org/wiki/Piazza_del_Popolo",
+      "file": "Piazza_del_Popolo,_Roma_(Rome).jpg",
+      "credit": "Apaleutos25",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_del_Popolo,_Roma_(Rome).jpg"
+    },
+    "place_026": {
+      "src": "/photos/place_026-square.jpg",
+      "title": "Uffizi",
+      "page": "https://en.wikipedia.org/wiki/Uffizi",
+      "file": "Florence,_Italy_-_panoramio_(125).jpg",
+      "credit": "Arek N.",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Florence,_Italy_-_panoramio_(125).jpg"
+    },
+    "place_028": {
+      "src": "/photos/place_028-square.jpg",
+      "title": "Oltrarno",
+      "page": "https://en.wikipedia.org/wiki/Oltrarno",
+      "file": "Palazzo_Pitti_nel_tardo_pomeriggio.jpg",
+      "credit": "Almaak",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Palazzo_Pitti_nel_tardo_pomeriggio.jpg"
+    },
+    "place_030": {
+      "src": "/photos/place_030-square.jpg",
+      "title": "Mercato Centrale (Florence)",
+      "page": "https://en.wikipedia.org/wiki/Mercato_Centrale_(Florence)",
+      "file": "Mercato_centrale_di_san_lorenzo_01.jpg",
+      "credit": "Sailko",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mercato_centrale_di_san_lorenzo_01.jpg"
+    },
+    "place_031": {
+      "src": "/photos/place_031-square.jpg",
+      "title": "Mercato Centrale (Florence)",
+      "page": "https://en.wikipedia.org/wiki/Mercato_Centrale_(Florence)",
+      "file": "Mercato_centrale_di_san_lorenzo_01.jpg",
+      "credit": "Sailko",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mercato_centrale_di_san_lorenzo_01.jpg"
+    },
+    "place_032": {
+      "src": "/photos/place_032-square.jpg",
+      "title": "Galleria dell'Accademia",
+      "page": "https://en.wikipedia.org/wiki/Galleria_dell'Accademia",
+      "file": "David_at_the_Galleria_dell'Accademia_(61351).jpg",
+      "credit": "Rhododendrites",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:David_at_the_Galleria_dell%27Accademia_(61351).jpg"
+    },
+    "place_034": {
+      "src": "/photos/place_034-square.jpg",
+      "title": "Boboli Gardens",
+      "page": "https://en.wikipedia.org/wiki/Boboli_Gardens",
+      "file": "Jardín_de_Bóboli,_Florencia,_Italia,_2022-09-19,_DD_26.jpg",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Jard%C3%ADn_de_B%C3%B3boli,_Florencia,_Italia,_2022-09-19,_DD_26.jpg"
+    },
+    "place_035": {
+      "src": "/photos/place_035-square.jpg",
+      "title": "Greve in Chianti",
+      "page": "https://en.wikipedia.org/wiki/Greve_in_Chianti",
+      "file": "Greve_piazza.JPG",
+      "credit": "Velvet",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Greve_piazza.JPG"
+    },
+    "place_036": {
+      "src": "/photos/place_036-square.jpg",
+      "title": "Basilica of Santa Croce, Florence",
+      "page": "https://en.wikipedia.org/wiki/Santa_Croce%2C_Florence",
+      "file": "Basílica_de_la_Santa_Cruz,_Florencia,_Italia,_2022-09-18,_DD_95.jpg",
+      "credit": "Diego Delso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_de_la_Santa_Cruz,_Florencia,_Italia,_2022-09-18,_DD_95.jpg"
+    },
+    "place_038": {
+      "src": "/photos/place_038-square.jpg",
+      "title": "Piazza del Campo",
+      "page": "https://en.wikipedia.org/wiki/Piazza_del_Campo",
+      "file": "Siena5.jpg",
+      "credit": "Ricardo André Frantz (User:Tetraktys)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Siena5.jpg"
+    },
+    "place_040": {
+      "src": "/photos/place_040-square.jpg",
+      "title": "San Miniato al Monte",
+      "page": "https://en.wikipedia.org/wiki/San_Miniato_al_Monte",
+      "file": "San_Miniato_al_Monte,_exterior,_Florencia,_Italia,_2019_01_cropped.jpg",
+      "credit": "Benjamín Núñez González",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:San_Miniato_al_Monte,_exterior,_Florencia,_Italia,_2019_01_cropped.jpg"
+    },
+    "place_043": {
+      "src": "/photos/place_043-square.jpg",
+      "title": "Osteria Francescana",
+      "page": "https://en.wikipedia.org/wiki/Osteria_Francescana",
+      "file": "Osteria_Francescana_IMG_2689_(23507139000).jpg",
+      "credit": "City Foodsters",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Osteria_Francescana_IMG_2689_(23507139000).jpg"
+    },
+    "place_044": {
+      "src": "/photos/place_044-square.jpg",
+      "title": "Traditional Balsamic Vinegar",
+      "page": "https://en.wikipedia.org/wiki/Traditional_balsamic_vinegar",
+      "file": "Barrels_vinegar.jpg",
+      "credit": "Unknown author",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Barrels_vinegar.jpg"
+    },
+    "place_045": {
+      "src": "/photos/place_045-square.jpg",
+      "title": "Museo Ferrari",
+      "page": "https://en.wikipedia.org/wiki/Museo_Ferrari",
+      "file": "Musée_Ferrari_Maranello_0007.JPG",
+      "credit": "Arnaud 25",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_Ferrari_Maranello_0007.JPG"
+    },
+    "place_048": {
+      "src": "/photos/place_048-square.jpg",
+      "title": "Two Towers, Bologna",
+      "page": "https://en.wikipedia.org/wiki/Two_Towers%2C_Bologna",
+      "file": "Asinelli_e_Garisenda.jpg",
+      "credit": "Vanni Lazzari",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Asinelli_e_Garisenda.jpg"
+    },
+    "place_049": {
+      "src": "/photos/place_049-square.jpg",
+      "title": "Porticoes of Bologna",
+      "page": "https://en.wikipedia.org/wiki/Porticoes_of_Bologna",
+      "file": "Portici-1.jpg",
+      "credit": "Ivan Riccardi",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Portici-1.jpg"
+    },
+    "place_051": {
+      "src": "/photos/place_051-square.jpg",
+      "title": "Pinacoteca Nazionale (Bologna)",
+      "page": "https://en.wikipedia.org/wiki/Pinacoteca_Nazionale_di_Bologna",
+      "file": "Pinacoteca_nazionale_di_bologna_00.JPG",
+      "credit": "sailko",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pinacoteca_nazionale_di_bologna_00.JPG"
+    },
+    "place_052": {
+      "src": "/photos/place_052-square.jpg",
+      "title": "Piazza Maggiore",
+      "page": "https://en.wikipedia.org/wiki/Piazza_Maggiore",
+      "file": "Piazza_Maggiore_2025.jpg",
+      "credit": "Nick.mon",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_Maggiore_2025.jpg"
+    },
+    "place_053": {
+      "src": "/photos/place_053-square.jpg",
+      "title": "Prosciutto di Parma",
+      "page": "https://en.wikipedia.org/wiki/Prosciutto",
+      "file": "Prosciutto_di_Parma,_ham_producing.jpg",
+      "credit": "Udo Schröter",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Prosciutto_di_Parma,_ham_producing.jpg"
+    },
+    "place_055": {
+      "src": "/photos/place_055-square.jpg",
+      "title": "Milan Cathedral",
+      "page": "https://en.wikipedia.org/wiki/Milan_Cathedral",
+      "file": "Milan_Cathedral_from_Piazza_del_Duomo.jpg",
+      "credit": "Jiuguang Wang",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Milan_Cathedral_from_Piazza_del_Duomo.jpg"
+    },
+    "place_056": {
+      "src": "/photos/place_056-square.jpg",
+      "title": "The Last Supper (Leonardo)",
+      "page": "https://en.wikipedia.org/wiki/The_Last_Supper_(Leonardo)",
+      "file": "The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg",
+      "credit": "Leonardo da Vinci",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg"
+    },
+    "place_057": {
+      "src": "/photos/place_057-square.jpg",
+      "title": "Navigli",
+      "page": "https://en.wikipedia.org/wiki/Navigli",
+      "file": "Naviglio_Grande,_Milano.jpg",
+      "credit": "Flavmi",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Naviglio_Grande,_Milano.jpg"
+    },
+    "place_058": {
+      "src": "/photos/place_058-square.jpg",
+      "title": "Pinacoteca di Brera",
+      "page": "https://en.wikipedia.org/wiki/Pinacoteca_di_Brera",
+      "file": "Milan_-_Pinacothèque_de_Brera_-_Cour_intérieure.jpg",
+      "credit": "Jean-Christophe BENOIST",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Milan_-_Pinacoth%C3%A8que_de_Brera_-_Cour_int%C3%A9rieure.jpg"
+    },
+    "place_059": {
+      "src": "/photos/place_059-square.jpg",
+      "title": "Brera (district of Milan)",
+      "page": "https://en.wikipedia.org/wiki/Brera%2C_Milan",
+      "file": "5275MilanoViaMadonnina.JPG",
+      "credit": "MarkusMark",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:5275MilanoViaMadonnina.JPG"
+    },
+    "place_060": {
+      "src": "/photos/place_060-square.jpg",
+      "title": "Galleria Vittorio Emanuele II",
+      "page": "https://en.wikipedia.org/wiki/Galleria_Vittorio_Emanuele_II",
+      "file": "Galleria_Milano_(179532365).jpeg",
+      "credit": "Marco Pagani",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Galleria_Milano_(179532365).jpeg"
+    },
+    "place_062": {
+      "src": "/photos/place_062-square.jpg",
+      "title": "Fondazione Prada",
+      "page": "https://en.wikipedia.org/wiki/Fondazione_Prada",
+      "file": "Fondazione_Prada,_Milan.jpg",
+      "credit": "Jay Dixit",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Fondazione_Prada,_Milan.jpg"
+    },
+    "place_063": {
+      "src": "/photos/place_063-square.jpg",
+      "title": "Bellagio, Lombardy",
+      "page": "https://en.wikipedia.org/wiki/Bellagio%2C_Lombardy",
+      "file": "Sentiero_del_Viandante_DSC_6340_(14020554463).jpg",
+      "credit": "Luca Casartelli",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Sentiero_del_Viandante_DSC_6340_(14020554463).jpg"
+    },
+    "place_064": {
+      "src": "/photos/place_064-square.jpg",
+      "title": "Villa del Balbianello",
+      "page": "https://en.wikipedia.org/wiki/Villa_del_Balbianello",
+      "file": "Tremezzina_-_Villa_del_Balbianello_-_2024-09-08_16-26-39_007.jpg",
+      "credit": "Emibuzz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tremezzina_-_Villa_del_Balbianello_-_2024-09-08_16-26-39_007.jpg"
+    },
+    "place_066": {
+      "src": "/photos/place_066-square.jpg",
+      "title": "Rialto Bridge",
+      "page": "https://en.wikipedia.org/wiki/Rialto_Bridge",
+      "file": "Rialto_2025_4.jpg",
+      "credit": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rialto_2025_4.jpg"
+    },
+    "place_067": {
+      "src": "/photos/place_067-square.jpg",
+      "title": "Doge's Palace",
+      "page": "https://en.wikipedia.org/wiki/Doge's_Palace",
+      "file": "(Venice)_Doge's_Palace_and_campanile_of_St._Mark's_Basilica_facing_the_sea.jpg",
+      "credit": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:(Venice)_Doge%27s_Palace_and_campanile_of_St._Mark%27s_Basilica_facing_the_sea.jpg"
+    },
+    "place_068": {
+      "src": "/photos/place_068-square.jpg",
+      "title": "Cannaregio",
+      "page": "https://en.wikipedia.org/wiki/Cannaregio",
+      "file": "Canale_di_Cannaregio_-_Viewed_from_Grand_Canal.jpg",
+      "credit": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Canale_di_Cannaregio_-_Viewed_from_Grand_Canal.jpg"
+    },
+    "place_069": {
+      "src": "/photos/place_069-square.jpg",
+      "title": "Peggy Guggenheim Collection",
+      "page": "https://en.wikipedia.org/wiki/Peggy_Guggenheim_Collection",
+      "file": "PI5DAE~2_-_CopyPeggy_Guggenheim_Museum.JPG",
+      "credit": "G.Lanting",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:PI5DAE~2_-_CopyPeggy_Guggenheim_Museum.JPG"
+    },
+    "place_070": {
+      "src": "/photos/place_070-square.jpg",
+      "title": "Burano",
+      "page": "https://en.wikipedia.org/wiki/Burano",
+      "file": "Burano_Venice_17.jpg",
+      "credit": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Burano_Venice_17.jpg"
+    },
+    "place_071": {
+      "src": "/photos/place_071-square.jpg",
+      "title": "Gondola",
+      "page": "https://en.wikipedia.org/wiki/Gondola",
+      "file": "Gondola_Ride.jpg",
+      "credit": "Njsmith3",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Gondola_Ride.jpg"
+    },
+    "place_072": {
+      "src": "/photos/place_072-square.jpg",
+      "title": "Santa Maria della Salute",
+      "page": "https://en.wikipedia.org/wiki/Santa_Maria_della_Salute",
+      "file": "Santa_Maria_della_Salute_from_Hotel_Monaco.jpg",
+      "credit": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here are not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract.",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Santa_Maria_della_Salute_from_Hotel_Monaco.jpg"
+    },
+    "place_074": {
+      "src": "/photos/place_074-square.jpg",
+      "title": "St Mark's Basilica",
+      "page": "https://en.wikipedia.org/wiki/St_Mark's_Basilica",
+      "file": "Venezia_Basilica_di_San_Marco_Fassade_2.jpg",
+      "credit": "Zairon",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Venezia_Basilica_di_San_Marco_Fassade_2.jpg"
+    },
+    "place_075": {
+      "src": "/photos/place_075-square.jpg",
+      "title": "Cannaregio",
+      "page": "https://en.wikipedia.org/wiki/Cannaregio",
+      "file": "Canale_di_Cannaregio_-_Viewed_from_Grand_Canal.jpg",
+      "credit": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Canale_di_Cannaregio_-_Viewed_from_Grand_Canal.jpg"
+    },
+    "place_077": {
+      "src": "/photos/place_077-square.jpg",
+      "title": "Trevi Fountain",
+      "page": "https://en.wikipedia.org/wiki/Trevi_Fountain",
+      "file": "Trevi_Fountain_-_Roma.jpg",
+      "credit": "NikonZ7II",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Trevi_Fountain_-_Roma.jpg"
+    },
+    "place_080": {
+      "src": "/photos/place_080-square.jpg",
+      "title": "Villa Borghese gardens",
+      "page": "https://en.wikipedia.org/wiki/Villa_Borghese_gardens",
+      "file": "Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg",
+      "credit": "Oursana",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Ingresso_monumentale_di_Villa_Borghese_a_Roma_su_piazzale_Flaminio_2018-02.jpg"
+    },
+    "place_081": {
+      "src": "/photos/place_081-square.jpg",
+      "title": "Palazzo Pitti",
+      "page": "https://en.wikipedia.org/wiki/Palazzo_Pitti",
+      "file": "Palazzo_Pitti_nel_tardo_pomeriggio.jpg",
+      "credit": "Almaak",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Palazzo_Pitti_nel_tardo_pomeriggio.jpg"
+    },
+    "place_084": {
+      "src": "/photos/place_084-square.jpg",
+      "title": "Ponte Vecchio",
+      "page": "https://en.wikipedia.org/wiki/Ponte_Vecchio",
+      "file": "Ponte_Vecchio_from_Ponte_alle_Grazie.jpg",
+      "credit": "Ingo Mehling",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ponte_Vecchio_from_Ponte_alle_Grazie.jpg"
+    },
+    "place_085": {
+      "src": "/photos/place_085-square.jpg",
+      "title": "Como",
+      "page": "https://en.wikipedia.org/wiki/Como",
+      "file": "Como_and_its_lake.jpg",
+      "credit": "Pxhere",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Como_and_its_lake.jpg"
+    },
+    "place_086": {
+      "src": "/photos/place_086-square.jpg",
+      "title": "Museo del Novecento",
+      "page": "https://en.wikipedia.org/wiki/Museo_del_Novecento",
+      "file": "Arengario_Milano_Museo_900.jpg",
+      "credit": "Fred Romero",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Arengario_Milano_Museo_900.jpg"
+    },
+    "place_088": {
+      "src": "/photos/place_088-square.jpg",
+      "title": "San Giorgio Maggiore (church), Venice",
+      "page": "https://en.wikipedia.org/wiki/San_Giorgio_Maggiore_(church)%2C_Venice",
+      "file": "Basilica_di_San_Giorgio_Maggiore_(Venice).jpg",
+      "credit": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Basilica_di_San_Giorgio_Maggiore_(Venice).jpg"
+    },
+    "place_089": {
+      "src": "/photos/place_089-square.jpg",
+      "title": "Pienza",
+      "page": "https://en.wikipedia.org/wiki/Pienza",
+      "file": "Pienza_italy.jpg",
+      "credit": "https://www.flickr.com/people/sherseydc/",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pienza_italy.jpg"
+    },
+    "place_090": {
+      "src": "/photos/place_090-square.jpg",
+      "title": "Isola della Scala",
+      "page": "https://en.wikipedia.org/wiki/Isola_della_Scala",
+      "file": "Torre_Scaligera_Isola_della_Scala.jpg",
+      "credit": "Alicudi",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Torre_Scaligera_Isola_della_Scala.jpg"
+    },
+    "place_093": {
+      "src": "/photos/place_093-square.jpg",
+      "title": "Florence Cathedral",
+      "page": "https://en.wikipedia.org/wiki/Florence_Cathedral",
+      "file": "Cattedrale_di_Santa_Maria_del_Fiore_–_Il_Duomo_di_Firenze.jpg",
+      "credit": "Gary Campbell-Hall",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg"
+    },
+    "place_095": {
+      "src": "/photos/place_095-square.jpg",
+      "title": "Orto botanico di Padova",
+      "page": "https://en.wikipedia.org/wiki/Orto_botanico_di_Padova",
+      "file": "Orto_botanico_padova.JPG",
+      "credit": "Unknown author",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Orto_botanico_padova.JPG"
+    },
+    "place_096": {
+      "src": "/photos/place_096-square.jpg",
+      "title": "Caffè Quadri",
+      "page": "https://en.wikipedia.org/wiki/Caff%C3%A8_Quadri",
+      "file": "Caffe_quadri.jpg",
+      "credit": "User:javier branas",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Caffe_quadri.jpg"
+    },
+    "place_097": {
+      "src": "/photos/place_097-square.jpg",
+      "title": "Janiculum",
+      "page": "https://en.wikipedia.org/wiki/Janiculum",
+      "file": "Janiculum.jpg",
+      "credit": "Unknown author",
+      "license": "Public domain",
+      "licenseUrl": null,
+      "source": "https://commons.wikimedia.org/wiki/File:Janiculum.jpg"
+    },
+    "place_098": {
+      "src": "/photos/place_098-square.jpg",
+      "title": "Basilica of Sant'Ambrogio",
+      "page": "https://en.wikipedia.org/wiki/Basilica_of_Sant'Ambrogio",
+      "file": "San_Ambrosio_00.jpg",
+      "credit": "Novellón",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:San_Ambrosio_00.jpg"
+    },
+    "place_101": {
+      "src": "/photos/place_101-square.jpg",
+      "title": "Bargello",
+      "page": "https://en.wikipedia.org/wiki/Bargello",
+      "file": "Florence,_Bargello,_Sala_di_Donatello_(detail).jpg",
+      "credit": "MenkinAlRire",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Florence,_Bargello,_Sala_di_Donatello_(detail).jpg"
+    },
+    "place_102": {
+      "src": "/photos/place_102-square.jpg",
+      "title": "Quadrilatero della moda",
+      "page": "https://en.wikipedia.org/wiki/Quadrilatero_della_moda",
+      "file": "3665MilanoViaMontenapoleone.JPG",
+      "credit": "Geobia",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:3665MilanoViaMontenapoleone.JPG"
+    },
+    "place_103": {
+      "src": "/photos/place_103-square.jpg",
+      "title": "Palazzo Vecchio",
+      "page": "https://en.wikipedia.org/wiki/Palazzo_Vecchio",
+      "file": "Piazza_della_signoria,_palazzo_vecchio,_veduta_01.jpg",
+      "credit": "Francesco Bini",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_della_signoria,_palazzo_vecchio,_veduta_01.jpg"
+    }
+  },
+  "hubs": {
+    "Rome": {
+      "portrait": "/photos/hub-rome-portrait.jpg",
+      "wide": "/photos/hub-rome-wide.jpg",
+      "title": "Colosseum",
+      "page": "https://en.wikipedia.org/wiki/Colosseum",
+      "file": "Colosseo_2020.jpg",
+      "credit": "FeaturedPics",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Colosseo_2020.jpg"
+    },
+    "Florence": {
+      "portrait": "/photos/hub-florence-portrait.jpg",
+      "wide": "/photos/hub-florence-wide.jpg",
+      "title": "Florence Cathedral",
+      "page": "https://en.wikipedia.org/wiki/Florence_Cathedral",
+      "file": "Cattedrale_di_Santa_Maria_del_Fiore_–_Il_Duomo_di_Firenze.jpg",
+      "credit": "Gary Campbell-Hall",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg"
+    },
+    "Milan": {
+      "portrait": "/photos/hub-milan-portrait.jpg",
+      "wide": "/photos/hub-milan-wide.jpg",
+      "title": "Milan Cathedral",
+      "page": "https://en.wikipedia.org/wiki/Milan_Cathedral",
+      "file": "Milan_Cathedral_from_Piazza_del_Duomo.jpg",
+      "credit": "Jiuguang Wang",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Milan_Cathedral_from_Piazza_del_Duomo.jpg"
+    },
+    "Venice": {
+      "portrait": "/photos/hub-venice-portrait.jpg",
+      "wide": "/photos/hub-venice-wide.jpg",
+      "title": "Grand Canal (Venice)",
+      "page": "https://en.wikipedia.org/wiki/Grand_Canal_(Venice)",
+      "file": "View_of_the_Grand_Canal_from_Rialto_to_Ca'Foscari.jpg",
+      "credit": "Didier Descouens",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:View_of_the_Grand_Canal_from_Rialto_to_Ca%27Foscari.jpg"
+    },
+    "Bologna": {
+      "portrait": "/photos/hub-bologna-portrait.jpg",
+      "wide": "/photos/hub-bologna-wide.jpg",
+      "title": "Piazza Maggiore",
+      "page": "https://en.wikipedia.org/wiki/Piazza_Maggiore",
+      "file": "Piazza_Maggiore_2025.jpg",
+      "credit": "Nick.mon",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Piazza_Maggiore_2025.jpg"
+    }
+  }
+}

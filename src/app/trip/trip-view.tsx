@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { use, useEffect, useState, useTransition } from "react";
 import { AgentQuestion, AskBar, BrowseRow, DayColumn, TripHeader, UndoBar } from "@/components/andiamo";
 import type { Answer, EditResponse } from "@/lib/ai/edit";
+import { hubPhoto } from "@/lib/hub-photos";
 import type { PlanResponse, PlanResult } from "@/lib/plan/plan-trip";
 import type { Plan } from "@/lib/plan/types";
 import type { PlaceView } from "@/lib/plan/view";
@@ -120,6 +121,7 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
       <TripHeader
         eyebrow={`${plan.days.length} days`}
         title={plan.hub}
+        photo={hubPhoto(plan.hub)?.wide}
         meta={[`${shortDate(plan.settings.startDate)} – ${shortDate(last)}`, `${capitalize(plan.settings.pace)} pace`]}
       />
       <div
@@ -141,7 +143,7 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
           <h2 className="mb-1 text-overline uppercase text-ink-muted">Couldn&apos;t fit</h2>
           {plan.unplaced.map((u) => {
             const p = places[u.placeId];
-            return p && <BrowseRow key={u.placeId} name={p.name} type={p.category} kind={p.kind} rating={p.rating} reason={u.reason} />;
+            return p && <BrowseRow key={u.placeId} name={p.name} type={p.category} kind={p.kind} photo={p.photo} rating={p.rating} reason={u.reason} />;
           })}
         </section>
       )}

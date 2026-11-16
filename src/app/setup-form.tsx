@@ -5,6 +5,7 @@ import Form from "next/form";
 import { Suspense, useState, type ReactNode } from "react";
 import { Button, Chip, HubCard, Icon, PaceToggle, type IconName, type PlaceKind } from "@/components/andiamo";
 import { HUBS as HUB_NAMES } from "@/lib/data/types";
+import { hubPhoto } from "@/lib/hub-photos";
 import { MAX_TRIP_DAYS, defaultSettings, tripLength } from "@/lib/plan/settings";
 import type { Interest, Pace } from "@/lib/plan/types";
 import { plusDays, shortDate } from "@/lib/time";
@@ -65,7 +66,7 @@ export function SetupForm() {
         <h2 className="mb-3 text-overline uppercase text-ink-muted">Base</h2>
         <div className="-m-2 flex gap-3 overflow-x-auto p-2">
           {HUBS.map((h) => (
-            <HubCard key={h.name} {...h} className="shrink-0" selected={hub === h.name} onClick={() => setHub(h.name)} />
+            <HubCard key={h.name} {...h} photo={hubPhoto(h.name)?.portrait} className="shrink-0" selected={hub === h.name} onClick={() => setHub(h.name)} />
           ))}
           <HubCard name={AUTO} blurb="Based on what you like" auto className="shrink-0" selected={hub === AUTO} onClick={() => setHub(AUTO)} />
         </div>

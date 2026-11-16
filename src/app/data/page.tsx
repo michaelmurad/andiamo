@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo, Photo } from "@/components/andiamo";
 import { PLACES, REJECTED } from "@/lib/data/places";
 import type { IssueAction } from "@/lib/data/types";
+import { placePhoto } from "@/lib/photos";
 import { kindOf } from "@/lib/plan/view";
 
 export const metadata: Metadata = { title: "Data quality · Andiamo" };
@@ -42,7 +43,7 @@ export default function DataPage() {
         <h2 className="text-overline uppercase text-ink-muted">By place</h2>
         {PLACES.filter((p) => p.issues.length).map((p) => (
           <article key={p.id} className="flex gap-3 rounded-lg bg-surface-raised p-3 shadow-card">
-            <Photo kind={kindOf(p)} sizes="56px" className="an-thumb" />
+            <Photo src={placePhoto(p.id)} kind={kindOf(p)} sizes="56px" className="an-thumb" />
             <div className="min-w-0 flex-1">
               <h3 className="text-card-title">
                 {p.name} <span className="text-meta text-ink-muted">{p.id}</span>
