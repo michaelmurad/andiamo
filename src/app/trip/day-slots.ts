@@ -47,6 +47,7 @@ function toDayStop(stop: Stop, place: PlaceView | undefined, from: PlaceView | n
     title: stop.label,
     why: stop.why,
     kind: place?.kind ?? "food",
+    photo: place?.photo,
     category: place?.category ?? "Your pick",
     duration: place?.duration,
     rating: place?.rating,

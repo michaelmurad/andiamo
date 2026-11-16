@@ -1,4 +1,5 @@
 import type { Place, PlaceType } from "@/lib/data/types";
+import { placePhoto } from "@/lib/photos";
 import type { Plan } from "./types";
 
 /** What the browser needs to draw a place. Sent with the plan so the client never loads the dataset. */
@@ -6,6 +7,8 @@ export interface PlaceView {
   id: string;
   name: string;
   kind: "city" | "history" | "art" | "food" | "outdoors" | "evening";
+  /** Square photo from Wikimedia Commons; missing when the place has none and the stand-in is drawn. */
+  photo?: string;
   category: string;
   rating: string;
   price: string;
@@ -56,6 +59,7 @@ export function toPlaceView(p: Place): PlaceView {
     id: p.id,
     name: p.name,
     kind: kindOf(p),
+    photo: placePhoto(p.id),
     category: CATEGORY[p.type],
     rating: p.rating.toFixed(1),
     price: p.priceLevel === 0 ? "Free" : "€".repeat(p.priceLevel),

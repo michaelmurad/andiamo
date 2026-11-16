@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "eval": "tsx --env-file=.env.local evals/select-places/run-eval.mjs",
     "eval:calibrate": "tsx --env-file=.env.local evals/select-places/calibrate.mjs",
-    "eval:compare": "node evals/select-places/compare.mjs"
+    "eval:compare": "node evals/select-places/compare.mjs",
+    "photos": "node scripts/photos/fetch-photos.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",

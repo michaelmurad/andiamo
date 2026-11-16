@@ -29,6 +29,7 @@ The plan is the response, and the plan is made of places. Every place is shown w
 - Text goes on a photo only over the `scrim` gradient, in `on-photo`, and only in two places: hub cards and the trip banner. Buttons on a photo are `Button variant="photo"`.
 - While a photo loads, show `surface-sunken`. When a place has no photo, the `Photo` component draws a stand-in scene for its kind from the `art-*` tokens. The stand-in covers gaps; it is not the look of the product.
 - Give `alt` the place name unless the name is printed beside the photo.
+- Photos come from Wikimedia Commons, picked by hand in `scripts/photos/sources.json` and pre-sized into `public/photos/` by `npm run photos`. Every one is credited on `/credits`; a new photo source needs its credits there too.
 
 ## Colour
 

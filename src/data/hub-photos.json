@@ -1,0 +1,22 @@
+{
+  "Rome": {
+    "portrait": "/photos/hub-rome-portrait.jpg",
+    "wide": "/photos/hub-rome-wide.jpg"
+  },
+  "Florence": {
+    "portrait": "/photos/hub-florence-portrait.jpg",
+    "wide": "/photos/hub-florence-wide.jpg"
+  },
+  "Milan": {
+    "portrait": "/photos/hub-milan-portrait.jpg",
+    "wide": "/photos/hub-milan-wide.jpg"
+  },
+  "Venice": {
+    "portrait": "/photos/hub-venice-portrait.jpg",
+    "wide": "/photos/hub-venice-wide.jpg"
+  },
+  "Bologna": {
+    "portrait": "/photos/hub-bologna-portrait.jpg",
+    "wide": "/photos/hub-bologna-wide.jpg"
+  }
+}
