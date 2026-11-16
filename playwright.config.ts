@@ -27,6 +27,9 @@ export default defineConfig({
       // Set here, so they win over any .env.local with a real key.
       ANTHROPIC_API_KEY: "e2e-no-model",
       ANTHROPIC_BASE_URL: "http://127.0.0.1:9",
+      // The browser talks to the server directly, so a test stands in for the one proxy in front: the
+      // x-forwarded-for a test sends is the address the rate limit counts. Tests without one share a limit.
+      TRUSTED_PROXY_HOPS: "1",
     },
   },
 });

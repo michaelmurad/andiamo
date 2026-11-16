@@ -2,7 +2,8 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 
 /** The Ask box. The model is unreachable in e2e (see playwright.config.ts), so most tests stub /api/edit. */
 
-// Each test plans a trip; its own client address keeps it out of the per-visitor limit the other specs share.
+// Each test plans a trip. Sending its own address, as the proxy would (see TRUSTED_PROXY_HOPS in
+// playwright.config.ts), keeps it out of the shared limit the other specs use.
 test.beforeEach(async ({ page }, info) => {
   await page.setExtraHTTPHeaders({ "x-forwarded-for": `e2e-ask-${info.testId}-${info.retry}` });
 });
