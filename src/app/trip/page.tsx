@@ -28,7 +28,8 @@ export default function TripPage({ searchParams }: PageProps<"/trip">) {
  */
 async function Trip({ searchParams }: { searchParams: SearchParams }) {
   await connection();
-  const { settings, notes } = fromSearchParams(toQuery(await searchParams), format(new Date(), "yyyy-MM-dd"));
+  const query = toQuery(await searchParams);
+  const { settings, notes } = fromSearchParams(query, format(new Date(), "yyyy-MM-dd"));
   const allowance = allow(clientKey(await headers()));
   const result: Promise<PlanResult> = allowance.ok
     ? planTrip(settings, notes).then(
@@ -40,9 +41,11 @@ async function Trip({ searchParams }: { searchParams: SearchParams }) {
       )
     : Promise.resolve({ error: "Too many trips planned at once", retryAfterSeconds: allowance.retryAfterSeconds });
 
-  // Keyed per request, so Try again (a router refresh) shows the loading screen again instead of the old screen.
+  // Keyed by the URL: Try again adds a retry count to it, so the boundary remounts and shows the loading screen
+  // instead of keeping the old screen up. The key must be the same in the HTML and the payload the browser
+  // hydrates; a random one per render leaves a fresh page load stuck on the outer fallback.
   return (
-    <Suspense key={crypto.randomUUID()} fallback={<TripLoading hub={settings.hub} />}>
+    <Suspense key={query.toString()} fallback={<TripLoading hub={settings.hub} />}>
       <TripView result={result} />
     </Suspense>
   );

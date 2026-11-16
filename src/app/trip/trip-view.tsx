@@ -11,13 +11,13 @@ import { TripWait } from "./trip-wait";
 /**
  * Renders the plan the trip page started on the server. `result` streams in; until it resolves, the surrounding
  * Suspense boundary shows the loading screen. Failures arrive as `{ error }`, so they get the wait or error screen,
- * and Try again re-runs the server render.
+ * and Try again asks the server for the same trip again.
  */
 export function TripView({ result: pending }: { result: Promise<PlanResult> }) {
   const router = useRouter();
   const result = use(pending);
   if ("error" in result) {
-    return <TripWait retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={() => router.refresh()} />;
+    return <TripWait retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={() => router.replace(withRetry(window.location.search))} />;
   }
 
   const { plan, places } = result.data;
@@ -55,3 +55,10 @@ export function TripView({ result: pending }: { result: Promise<PlanResult> }) {
 }
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
+
+/** The same trip with its retry count bumped: a new URL, so the server plans again and the loading screen shows. */
+function withRetry(search: string): string {
+  const params = new URLSearchParams(search);
+  params.set("retry", String(Number(params.get("retry") ?? 0) + 1));
+  return `?${params}`;
+}
