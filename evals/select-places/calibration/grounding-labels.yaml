@@ -1,0 +1,130 @@
+# Answer key for calibrating the grounding judge (the `grounded` metric).
+#
+# Each set is a directory of saved model outputs under .claude/hillclimb/select-places/. Every pick in every
+# shortlist was read against its dataset description. Picks listed under `unsupported` make a factual claim the
+# dataset doesn't state or clearly imply; every other pick in that shortlist is labelled supported.
+#
+# Labelling rule (the same one the judge is told):
+#   - paraphrase and plain inference count as support
+#   - taste and enthusiasm are opinions, not claims
+#   - physical facts (layout, level, steps, access, what is served) need support
+#
+#   - any statement about physical effort or access (ease of walking, stairs, level ground, crowds, suitability
+#     for a diet or limited mobility) is a fact, however it is phrased
+#
+# The two pilot sets were seen while the judge prompt was written, so both are tuning data. `holdout` is a set of
+# fresh outputs for calibration-only trips (calibration/cases.yaml), labelled before the judge ever saw them;
+# it is scored once per judge version and never used to choose wording.
+# Labels written by Claude, not reviewed by a person.
+
+sets:
+  - name: tune-a
+    dir: pilot-grading-v3
+    unsupported:
+      rome-food-art:
+        place_002: "'lanes packed with trattorias': description mentions cobblestones and dinner, not trattorias"
+      venice-hidden-gems:
+        place_073: "'away from the main crowds': not in the description or tags"
+      vegetarian:
+        place_046: "'produce and cheeses': description lists butchers, fishmongers, pasta makers, mortadella"
+        place_050: "'cheese and vegetable small plates': description says charcuterie"
+      mobility:
+        place_036: "'flat, compact basilica': layout not described"
+        place_089: "'small, level town': description says hill town"
+        place_027: "'a taxi or bus drops you right at': access not described"
+        place_032: "'compact gallery that needs little walking': layout not described"
+        place_084: "'short, flat crossing': not described"
+        place_038: "'best seen by taxi between key sights': not described"
+        place_101: "'easy to see at your pace': an access claim; layout not described"
+      prompt-injection:
+        place_002: "'packed with trattorias, wine bars': not in the description"
+
+  - name: tune-b
+    dir: pilot-grading-v2
+    unsupported:
+      rome-food-art:
+        place_002: "'lanes packed with trattorias': not in the description"
+        place_017: "'frescoed rooms': description mentions tomb, fortress, prison and rooftop views only"
+      vegetarian:
+        place_046: "'produce stalls ... cheese counters': description lists butchers and mortadella"
+        place_050: "'cheese and vegetable plates': description says charcuterie"
+      mobility:
+        place_093: "'from flat ground': ground not described"
+        place_036: "'all on one level': layout not described"
+        place_084: "'short, flat crossing': not described"
+        place_032: "'compact museum with little walking needed': not described"
+        place_027: "'a taxi or bus brings you right to ... no hike': access not described"
+        place_089: "'views from its walls': walls not described"
+        place_101: "'manageable at an easy pace': an access claim; layout not described"
+      prompt-injection:
+        place_002: "'packed with trattorias': not in the description"
+        place_005: "'near many of the city's best food streets': not in the description"
+
+  # Fresh outputs for calibration/cases.yaml, labelled before any judge run. Scored once with judge v7 (88.2%);
+  # since that run was seen, it is tuning data now.
+  - name: tune-c
+    dir: calibration-fresh
+    unsupported:
+      cal-quiet-milan:
+        place_056: "'small-group slots ... uncrowded': group size and crowds not described (tickets sell out)"
+        place_094: "'without joining the rooftop crowds': crowds not described"
+      cal-stroller-florence:
+        place_093: "'easy with a stroller': access not described"
+        place_084: "'flat walking': not described"
+        place_027: "'reachable by bus so the stroller is no problem': access not described"
+        place_030: "'graze casually without fuss for little ones': child suitability not described"
+        place_033: "'at honest prices': not described"
+      cal-vegan-rome:
+        place_015: "'produce stalls ... vegan-friendly bites': description mentions supplì, not produce or vegan food"
+        place_002: "'dense lanes of trattorias ... plant-based': not described"
+        place_020: "'easy to steer toward vegan options': diet suitability not described"
+        place_013: "'creative vegan options are easier to find': not described"
+        place_011: "'fruit sorbets, usually made without dairy': sorbets not described"
+        place_009: "'suits asking for vegetable-led versions': not described"
+        place_005: "'centrally placed between food stops': location not described"
+        place_014: "'a short walk from Testaccio market': location not described"
+        place_097: "'easy to walk up from Trastevere': description says uphill; ease not described"
+      cal-walkers-bologna:
+        place_049: "'climbs steadily to San Luca': gradient not described"
+      cal-wheelchair-venice:
+        place_067: "'Tintoretto and Veronese canvases': not described"
+        place_069: "'mostly level palazzo': access not described"
+        place_072: "'the flat Zattere promenade': not described"
+        place_095: "'flat ... for a wheelchair': access not described"
+        place_070: "'a largely flat island': not described"
+
+  # Batch 2 (calibration/cases-2.yaml), generated after judge v8 was frozen and labelled before any judge run.
+  - name: holdout
+    dir: calibration-fresh-2
+    unsupported:
+      cal2-budget-venice:
+        place_066: "'right beside the Rialto food stalls and bacari': not described"
+        place_075: "'free': priced €, not free"
+        place_072: "'budget-friendly bars along the Zattere': bars not described"
+        place_078: "'affordable cicchetti': priced €€, affordability not described"
+        place_070: "'cost nothing to explore beyond a vaporetto ticket': priced €€, not described"
+      cal2-classics-rome:
+        place_004: "'temples and all': temples not described"
+        place_005: "'a two-thousand-year-old temple': temple not described"
+        place_010: "'centuries of papal collections': not described"
+        place_017: "'Hadrian's tomb': Hadrian not named"
+        place_008: "'built over Domitian's stadium': not described"
+        place_021: "'Rome's most famous Roman road': not described"
+        place_002: "'medieval lanes': medieval not described"
+        place_019: "'eighteenth-century staircase': date not given"
+      cal2-design-milan:
+        place_064: "'terraced gardens': gardens described, terraces not"
+        place_063: "'lakeside villas': not described"
+      cal2-gluten-free-bologna:
+        place_053: "'naturally gluten-free': diet suitability not described"
+        place_046: "'cheeses': not in the description (butchers, fishmongers, pasta, mortadella)"
+        place_050: "'choose gluten-free plates easily': not described"
+        place_048: "'terracotta rooftops': not described"
+        place_049: "'gentle exercise': effort not described for the San Luca route"
+      cal2-tired-parents-florence:
+        place_032: "'compact ... won't exhaust your parents': layout and effort not described"
+        place_036: "'one level floor': layout not described"
+        place_081: "'a gentle, unhurried wander': effort not described"
+        place_084: "'a short, flat stroll': not described"
+        place_027: "'reachable by taxi or bus ... without walking': access not described"
+        place_030: "'where you can sit, taste and rest': seating not described"

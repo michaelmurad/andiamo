@@ -1,0 +1,62 @@
+# Lockbox: cases the improvement loop never sees or scores. Run only twice, on the baseline prompt and on the
+# final prompt, to check that gains on the test split carry over to trips nobody tuned against.
+# Same schema as cases.yaml. Kept out of every analyzer's inputs.
+
+defaults:
+  startDate: "2027-05-14"
+  days: 3
+  hub: Rome
+  pace: balanced
+  interests: [food, art]
+  avoidCrowds: false
+  maxPrice: 3
+  dayTrip: auto
+
+cases:
+  - id: lock-florence-locals
+    tags: [lockbox, florence]
+    settings: { hub: Florence, interests: [food, hidden-gems] }
+    notes: "We want to eat where Florentines eat."
+    rubric:
+      - Most food picks are tagged local-favorite.
+      - Every reason names something specific from the place rather than generic praise.
+
+  - id: lock-venice-first-time
+    tags: [lockbox, venice]
+    settings: { hub: Venice, interests: [history, art] }
+    notes: "First time in Venice."
+    constraints: { include_any: [place_067, place_074] }
+    rubric:
+      - The top five include at least two of Venice's major historic or art sights.
+
+  - id: lock-milan-cheap
+    tags: [lockbox, milan]
+    settings: { hub: Milan, interests: [food, art], maxPrice: 1 }
+    notes: "Cheap but good, please."
+    # Milan has only 4 plannable places at € or free, so at most 40% of a 10-pick list can be; 30% means 3 of them.
+    constraints: { max_price_share: { level: 1, share: 0.3 }, exclude_tags: [splurge] }
+    rubric:
+      - No reason recommends an expensive experience.
+
+  - id: lock-auto-quiet-romance
+    tags: [lockbox, pick-hub]
+    settings: { hub: null, interests: [hidden-gems], pace: relaxed, avoidCrowds: true }
+    notes: "A quiet, romantic long weekend."
+    rubric:
+      - At most two picks are tagged tourist-heavy.
+      - Several picks are tagged romantic, quiet or hidden-gem.
+
+  - id: lock-bologna-no-pork
+    tags: [lockbox, bologna]
+    settings: { hub: Bologna, interests: [food] }
+    notes: "We don't eat pork."
+    constraints: { exclude_ids: [place_053, place_092, place_046] }
+    rubric:
+      - No reason recommends a pork dish (prosciutto, mortadella, culatello, salumi, ragù).
+
+  - id: lock-rome-evening-views
+    tags: [lockbox, rome]
+    settings: { hub: Rome, interests: [outdoors, history] }
+    notes: "We love a good view."
+    rubric:
+      - At least three picks are tagged views or scenic.

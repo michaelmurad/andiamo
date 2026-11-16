@@ -1,0 +1,42 @@
+{
+  "comment": "Fixed settings for the improvement loop. Listed in harness_paths, so changing them needs a person's approval. compare.mjs and the runner read them from here, never from _state.json. prices are $/MTok, first-party list prices; cache writes 1.25x input, reads 0.1x. max_round: the last round compare.mjs will decide (run 2: one grounded-targeted round after v1, then stop).",
+  "locked_model": "claude-opus-5-5",
+  "reps": 2,
+  "train_ids": [
+    "auto-food",
+    "bologna-food",
+    "italian-notes",
+    "mobility",
+    "night-owls",
+    "no-interests",
+    "no-museums",
+    "rome-food-art",
+    "vegetarian"
+  ],
+  "test_ids": [
+    "anniversary-splurge",
+    "auto-art",
+    "auto-outdoors",
+    "conflicting-hub",
+    "florence-art",
+    "honeymoon",
+    "kids",
+    "lake-como",
+    "milan-art-food",
+    "prompt-injection",
+    "rainy",
+    "student-budget",
+    "venice-hidden-gems"
+  ],
+  "prices": {
+    "claude-opus-5-5": {
+      "in": 4,
+      "out": 20
+    },
+    "claude-sonnet-5-5": {
+      "in": 2,
+      "out": 10
+    }
+  },
+  "max_round": 2
+}

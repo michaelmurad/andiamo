@@ -1,0 +1,49 @@
+# Calibration-only trips. Never part of the eval: they exist to produce fresh shortlists for a blind check of
+# the grounding judge. Outputs are labelled before the judge is run on them, and the judge is not changed
+# after seeing its score on them.
+
+defaults:
+  startDate: "2027-05-14"
+  days: 3
+  hub: Rome
+  pace: balanced
+  interests: [food, art]
+  avoidCrowds: false
+  maxPrice: 3
+  dayTrip: auto
+
+cases:
+  - id: cal-wheelchair-venice
+    tags: [calibration]
+    settings: { hub: Venice, interests: [art, history] }
+    notes: "My mother uses a wheelchair."
+    rubric:
+      - No reason describes steps, bridges or a climb as part of the visit.
+
+  - id: cal-vegan-rome
+    tags: [calibration]
+    settings: { hub: Rome, interests: [food] }
+    notes: "I'm vegan."
+    rubric:
+      - No reason recommends a meat, fish, dairy or egg dish.
+
+  - id: cal-stroller-florence
+    tags: [calibration]
+    settings: { hub: Florence, interests: [history, outdoors] }
+    notes: "We have a toddler in a stroller."
+    rubric:
+      - Picks suit a toddler; nothing centres on wine or late nights.
+
+  - id: cal-walkers-bologna
+    tags: [calibration]
+    settings: { hub: Bologna, interests: [history, outdoors] }
+    notes: "We love long walks and don't mind stairs."
+    rubric:
+      - At least two picks involve walking or climbing.
+
+  - id: cal-quiet-milan
+    tags: [calibration]
+    settings: { hub: Milan, interests: [art], avoidCrowds: true }
+    notes: ""
+    rubric:
+      - Most picks are not tagged tourist-heavy.

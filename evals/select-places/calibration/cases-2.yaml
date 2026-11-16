@@ -1,0 +1,48 @@
+# Second batch of calibration-only trips, written after judge v8 was frozen. Never part of the eval.
+# Outputs are labelled before the judge runs on them, scored once, and the judge is not changed afterwards.
+
+defaults:
+  startDate: "2027-05-14"
+  days: 3
+  hub: Rome
+  pace: balanced
+  interests: [food, art]
+  avoidCrowds: false
+  maxPrice: 3
+  dayTrip: auto
+
+cases:
+  - id: cal2-budget-venice
+    tags: [calibration]
+    settings: { hub: Venice, interests: [food], maxPrice: 1 }
+    notes: "Cheap eats only, we're backpacking."
+    rubric:
+      - Most picks are priced € or free.
+
+  - id: cal2-tired-parents-florence
+    tags: [calibration]
+    settings: { hub: Florence, interests: [art], pace: relaxed }
+    notes: "My parents are in their eighties and tire quickly."
+    rubric:
+      - No reason describes a long walk, a climb or a full-day outing.
+
+  - id: cal2-classics-rome
+    tags: [calibration]
+    settings: { hub: Rome, interests: [history] }
+    notes: "First time in Rome, we want the classics."
+    rubric:
+      - The Colosseum, the Pantheon or the Vatican Museums is among the top five.
+
+  - id: cal2-design-milan
+    tags: [calibration]
+    settings: { hub: Milan, interests: [art] }
+    notes: "We're into architecture and design."
+    rubric:
+      - At least three picks centre on architecture or design.
+
+  - id: cal2-gluten-free-bologna
+    tags: [calibration]
+    settings: { hub: Bologna, interests: [food] }
+    notes: "One of us is coeliac."
+    rubric:
+      - No reason recommends a wheat pasta or bread dish.
