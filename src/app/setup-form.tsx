@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import Form from "next/form";
+import { useState } from "react";
 import { Button, Chip, HubCard, Icon, PaceToggle, type IconName, type PlaceKind } from "@/components/andiamo";
 import { HUBS as HUB_NAMES } from "@/lib/data/types";
 import type { Interest, Pace } from "@/lib/plan/types";
@@ -34,7 +34,6 @@ const INTEREST_IDS: Record<string, Interest> = {
 };
 
 export function SetupForm() {
-  const router = useRouter();
   const [hub, setHub] = useState("Rome");
   const [interests, setInterests] = useState<string[]>(["Food", "Art"]);
   const [pace, setPace] = useState("Balanced");
@@ -42,22 +41,15 @@ export function SetupForm() {
   const toggle = (label: string) =>
     setInterests((current) => (current.includes(label) ? current.filter((l) => l !== label) : [...current, label]));
 
-  // The trip page reads everything from the URL; the start date defaults there when it's missing.
-  const submit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const params = new URLSearchParams({
-      hub: (HUB_NAMES as readonly string[]).includes(hub) ? hub : "auto",
-      pace: pace.toLowerCase() as Pace,
-      likes: interests.flatMap((i) => INTEREST_IDS[i] ?? []).join(","),
-      crowds: interests.includes("Avoid crowds") ? "avoid" : "ok",
-    });
-    const notes = String(new FormData(e.currentTarget).get("notes") ?? "").trim();
-    if (notes) params.set("notes", notes);
-    router.push(`/trip?${params}`);
-  };
-
+  // A GET form: the trip page reads everything from the URL (the start date defaults there when it's missing).
+  // The cards, chips and toggle are buttons, so their choices travel in hidden fields.
   return (
-    <form className="flex flex-col gap-8" onSubmit={submit}>
+    <Form action="/trip" className="flex flex-col gap-8">
+      <input type="hidden" name="hub" value={(HUB_NAMES as readonly string[]).includes(hub) ? hub : "auto"} />
+      <input type="hidden" name="pace" value={pace.toLowerCase() as Pace} />
+      <input type="hidden" name="likes" value={interests.flatMap((i) => INTEREST_IDS[i] ?? []).join(",")} />
+      <input type="hidden" name="crowds" value={interests.includes("Avoid crowds") ? "avoid" : "ok"} />
+
       <section>
         <h2 className="mb-3 text-overline uppercase text-ink-muted">When</h2>
         {/* Placeholder until the date picker exists. The trip page defaults to a Friday three weeks out. */}
@@ -103,6 +95,6 @@ export function SetupForm() {
           Plan my trip
         </Button>
       </div>
-    </form>
+    </Form>
   );
 }

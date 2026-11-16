@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { Button } from "@/components/andiamo";
 import "./trip-wait.css";
 
@@ -23,7 +23,8 @@ export function TripWait({ retryAfterSeconds, message, onRetry }: TripWaitProps)
   const busy = retryAfterSeconds !== undefined;
   const total = Math.max(1, retryAfterSeconds ?? 1);
   const [left, setLeft] = useState(total);
-  const retried = useRef(false);
+  // An Effect Event reads the latest onRetry without making the countdown restart when the parent re-renders.
+  const retryNow = useEffectEvent(onRetry);
 
   useEffect(() => {
     if (!busy) return;
@@ -31,12 +32,10 @@ export function TripWait({ retryAfterSeconds, message, onRetry }: TripWaitProps)
     return () => clearInterval(id);
   }, [busy]);
 
+  // Runs once when the countdown reaches zero: `left` only ever reaches 0 once per mount.
   useEffect(() => {
-    if (busy && left === 0 && !retried.current) {
-      retried.current = true;
-      onRetry();
-    }
-  }, [busy, left, onRetry]);
+    if (busy && left === 0) retryNow();
+  }, [busy, left]);
 
   const drained = busy ? C * (1 - left / total) : 0;
 
