@@ -28,25 +28,17 @@ export default function TripPage({ searchParams }: PageProps<"/trip">) {
  */
 async function Trip({ searchParams }: { searchParams: SearchParams }) {
   await connection();
-  const query = toQuery(await searchParams);
-  const { settings, notes } = fromSearchParams(query, format(new Date(), "yyyy-MM-dd"));
+  const { settings, notes } = fromSearchParams(toQuery(await searchParams), format(new Date(), "yyyy-MM-dd"));
   const allowance = allow(clientKey(await headers()));
+  // Being rate-limited is expected, so it's a value the page renders. A planner crash is a bug: the promise
+  // rejects, `use` throws in the browser, and error.tsx catches it.
   const result: Promise<PlanResult> = allowance.ok
-    ? planTrip(settings, notes).then(
-        (data) => ({ data }),
-        (error: unknown) => {
-          console.error("planTrip failed", error);
-          return { error: "The planner didn't answer" };
-        },
-      )
+    ? planTrip(settings, notes).then((data) => ({ data }))
     : Promise.resolve({ error: "Too many trips planned at once", retryAfterSeconds: allowance.retryAfterSeconds });
 
-  // Keyed by the URL: Try again adds a retry count to it, so the boundary remounts and shows the loading screen
-  // instead of keeping the old screen up. The key must be the same in the HTML and the payload the browser
-  // hydrates; a random one per render leaves a fresh page load stuck on the outer fallback.
   return (
-    <Suspense key={query.toString()} fallback={<TripLoading hub={settings.hub} />}>
-      <TripView result={result} />
+    <Suspense fallback={<TripLoading hub={settings.hub} />}>
+      <TripView result={result} hub={settings.hub} />
     </Suspense>
   );
 }
