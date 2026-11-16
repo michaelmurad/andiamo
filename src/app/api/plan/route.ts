@@ -6,6 +6,8 @@ import { TripSettingsSchema } from "@/lib/plan/settings";
 const Body = z.object({
   settings: TripSettingsSchema,
   notes: z.string().max(500).default(""),
+  /** false plans with the scheduler alone, skipping the model. */
+  useModel: z.boolean().default(true),
 });
 
 export async function POST(request: Request) {
@@ -20,7 +22,7 @@ export async function POST(request: Request) {
 
   const body = Body.safeParse(await request.json().catch(() => null));
   if (!body.success) return Response.json({ error: z.prettifyError(body.error) }, { status: 400 });
-  const { settings, notes } = body.data;
+  const { settings, notes, useModel } = body.data;
 
-  return Response.json(await planTrip(settings, notes));
+  return Response.json(await planTrip(settings, notes, { useModel }));
 }

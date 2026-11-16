@@ -74,7 +74,18 @@ describe("URL settings", () => {
 
   it("round-trips the start date, length and everything else", () => {
     const params = toSearchParams(settings, "no museums on Monday");
-    expect(fromSearchParams(params, TODAY)).toEqual({ settings, notes: "no museums on Monday" });
+    expect(fromSearchParams(params, TODAY)).toEqual({ settings, notes: "no museums on Monday", options: { useModel: true } });
+  });
+
+  it("round-trips ai=off, and leaves it out of the URL otherwise", () => {
+    const off = toSearchParams(settings, "", { useModel: false });
+    expect(off.get("ai")).toBe("off");
+    expect(fromSearchParams(off, TODAY).options).toEqual({ useModel: false });
+    expect(toSearchParams(settings).has("ai")).toBe(false);
+  });
+
+  it.each(["on", "0", "false", "OFF", ""])("uses the model for ai=%s: only an exact \"off\" turns it off", (value) => {
+    expect(fromSearchParams(new URLSearchParams({ ai: value }), TODAY).options.useModel).toBe(true);
   });
 
   it("reads the setup screen's URL, which leaves out price and day trips", () => {

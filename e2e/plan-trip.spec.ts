@@ -73,3 +73,15 @@ test("an invalid trip link falls back to the default trip", async ({ page }) => 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Rome");
   await expect(days(page)).toHaveCount(3);
 });
+
+test("ai=off plans with the scheduler alone, the same trip every time", async ({ page }) => {
+  // e2e can't see the model either way (it's unreachable here); the unit tests prove the call is skipped.
+  await page.goto("/trip?start=2027-05-14&days=3&hub=Rome&pace=balanced&likes=food,art&crowds=ok&ai=off");
+  await waitForPlan(page);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Rome");
+  await expect(days(page)).toHaveCount(3);
+  const first = await stopTitles(page);
+  await page.reload();
+  await waitForPlan(page);
+  expect(await stopTitles(page)).toEqual(first);
+});

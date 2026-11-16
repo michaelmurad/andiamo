@@ -43,8 +43,16 @@ export const defaultSettings = (today: IsoDate): TripSettings => ({
   dayTrip: "auto",
 });
 
+/**
+ * How a trip is planned, as opposed to what the trip is. `useModel: false` (`ai=off` in the URL) skips the model and
+ * plans with the scheduler alone: no paid call, and the same plan every time for the same URL.
+ */
+export interface PlanOptions {
+  useModel: boolean;
+}
+
 /** Settings live in the URL so a plan can be reloaded or shared. */
-export function toSearchParams(s: TripSettings, notes = ""): URLSearchParams {
+export function toSearchParams(s: TripSettings, notes = "", options: PlanOptions = { useModel: true }): URLSearchParams {
   const params = new URLSearchParams({
     start: s.startDate,
     days: String(s.days),
@@ -56,11 +64,12 @@ export function toSearchParams(s: TripSettings, notes = ""): URLSearchParams {
     trip: s.dayTrip,
   });
   if (notes) params.set("notes", notes);
+  if (!options.useModel) params.set("ai", "off");
   return params;
 }
 
 /** Reads settings back from the URL. Anything missing or invalid falls back to the default. */
-export function fromSearchParams(params: URLSearchParams, today: IsoDate): { settings: TripSettings; notes: string } {
+export function fromSearchParams(params: URLSearchParams, today: IsoDate): { settings: TripSettings; notes: string; options: PlanOptions } {
   const d = defaultSettings(today);
   const get = (k: string) => params.get(k) ?? undefined;
   const candidate = {
@@ -74,5 +83,10 @@ export function fromSearchParams(params: URLSearchParams, today: IsoDate): { set
     dayTrip: get("trip") ?? d.dayTrip,
   };
   const parsed = TripSettingsSchema.safeParse(candidate);
-  return { settings: parsed.success ? parsed.data : d, notes: (get("notes") ?? "").slice(0, 500) };
+  return {
+    settings: parsed.success ? parsed.data : d,
+    notes: (get("notes") ?? "").slice(0, 500),
+    // Only an explicit "off" turns the model off; anything else plans as usual.
+    options: { useModel: get("ai") !== "off" },
+  };
 }

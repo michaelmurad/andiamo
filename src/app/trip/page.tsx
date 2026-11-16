@@ -28,12 +28,12 @@ export default function TripPage({ searchParams }: PageProps<"/trip">) {
  */
 async function Trip({ searchParams }: { searchParams: SearchParams }) {
   await connection();
-  const { settings, notes } = fromSearchParams(toQuery(await searchParams), format(new Date(), "yyyy-MM-dd"));
+  const { settings, notes, options } = fromSearchParams(toQuery(await searchParams), format(new Date(), "yyyy-MM-dd"));
   const allowance = allow(clientKey(await headers()));
   // Being rate-limited is expected, so it's a value the page renders. A planner crash is a bug: the promise
   // rejects, `use` throws in the browser, and error.tsx catches it.
   const result: Promise<PlanResult> = allowance.ok
-    ? planTrip(settings, notes).then((data) => ({ data }))
+    ? planTrip(settings, notes, options).then((data) => ({ data }))
     : Promise.resolve({ error: "Too many trips planned at once", retryAfterSeconds: allowance.retryAfterSeconds });
 
   return (
