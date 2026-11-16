@@ -1,6 +1,6 @@
 import {
   ArrowLeftRight, ArrowUp, CalendarDays, Check, ChevronRight, Clock, Coffee, Footprints, Landmark, Map, MapPin, Moon, Palette, Plus,
-  Search, SlidersHorizontal, Sparkles, Star, Sun, TramFront, Trees, TriangleAlert, Undo2, Utensils, Wine, X, type LucideProps,
+  BusFront, Search, Ship, SlidersHorizontal, Sparkles, Star, Sun, TrainFront, TramFront, Trees, TriangleAlert, Undo2, Utensils, Wine, X, type LucideProps,
 } from "lucide-react";
 import { cx } from "./cx";
 
@@ -9,6 +9,7 @@ const ICONS = {
   "map-pin": MapPin, search: Search, sparkles: Sparkles, "arrow-up": ArrowUp, "calendar-days": CalendarDays, utensils: Utensils,
   landmark: Landmark, palette: Palette, trees: Trees, footprints: Footprints, star: Star, moon: Moon, sun: Sun, coffee: Coffee,
   wine: Wine, "tram-front": TramFront, map: Map, "sliders-horizontal": SlidersHorizontal, "chevron-right": ChevronRight,
+  "bus-front": BusFront, ship: Ship, "train-front": TrainFront,
 } as const;
 
 export type IconName = keyof typeof ICONS;

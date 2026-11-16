@@ -25,19 +25,33 @@ const DETOUR = 1.3;
 const WALK_MAX_KM = 1.2;
 const TRANSIT_MAX_KM = 20;
 
+const walkMinutes = (km: number) => ((km * DETOUR) / 5) * 60;
+const transitMinutes = (km: number) => 10 + ((km * DETOUR) / 20) * 60;
+const trainMinutes = (km: number) => 25 + ((km * DETOUR) / 90) * 60;
+
+/**
+ * Transit is held between two limits so a farther place never looks closer than a nearer one:
+ * no quicker than walking to the walking limit (the tram's wait outweighs the ride), and no slower
+ * than the train at the train limit (past ~8 km a metro, regional train or taxi caps the time).
+ */
+const TRANSIT_MIN = walkMinutes(WALK_MAX_KM);
+const TRANSIT_MAX = trainMinutes(TRANSIT_MAX_KM);
+
 /**
  * The one travel estimate used everywhere. No routing API: straight-line distance, a detour factor,
  * and a fixed overhead per mode (waiting for a tram, getting to the station).
  *   up to 1.2 km  walk at 5 km/h
- *   up to 20 km   tram, bus, taxi or vaporetto: 10 min overhead + 20 km/h
+ *   up to 20 km   tram, bus, taxi or vaporetto: 10 min overhead + 20 km/h, held between the walk and train times
  *   beyond        regional train: 25 min overhead + 90 km/h
+ * Time never drops as distance grows, including where the mode changes.
  */
 export function travel(a: Coords, b: Coords): Travel {
   const km = haversineKm(a, b);
-  const routeKm = km * DETOUR;
-  if (km <= WALK_MAX_KM) return { km, mode: "walk", minutes: Math.max(2, Math.round((routeKm / 5) * 60)) };
-  if (km <= TRANSIT_MAX_KM) return { km, mode: "transit", minutes: roundTo5(10 + (routeKm / 20) * 60) };
-  return { km, mode: "train", minutes: roundTo5(25 + (routeKm / 90) * 60) };
+  if (km <= WALK_MAX_KM) return { km, mode: "walk", minutes: Math.max(2, Math.round(walkMinutes(km))) };
+  if (km <= TRANSIT_MAX_KM) {
+    return { km, mode: "transit", minutes: roundTo5(Math.min(TRANSIT_MAX, Math.max(TRANSIT_MIN, transitMinutes(km)))) };
+  }
+  return { km, mode: "train", minutes: roundTo5(trainMinutes(km)) };
 }
 
 const roundTo5 = (n: number) => Math.ceil(n / 5) * 5;
