@@ -3,9 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
-  // Prompts are read from disk at runtime, not imported, so the route's server bundle must include them.
+  // Prompts are read from disk at runtime, not imported, so every server bundle that plans must include them.
   outputFileTracingIncludes: {
     "/api/plan": ["./prompts/**/*.yaml"],
+    "/trip": ["./prompts/**/*.yaml"],
   },
   partialPrefetching: true,
   turbopack: {
