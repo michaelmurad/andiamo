@@ -1,11 +1,17 @@
 import { z } from "zod";
 import { HUBS } from "@/lib/data/types";
-import { plusDays, weekdayOf, type IsoDate } from "@/lib/time";
+import { daysBetween, plusDays, weekdayOf, type IsoDate } from "@/lib/time";
 import { INTERESTS, PACES, type TripSettings } from "./types";
+
+/** Longest trip the planner accepts. Each day widens the pool of places sent to the model. */
+export const MAX_PLANNER_DAYS = 7;
+
+/** Longest trip the setup screen offers. Raise it up to MAX_PLANNER_DAYS; nothing else needs to change. */
+export const MAX_TRIP_DAYS = 3;
 
 export const TripSettingsSchema = z.object({
   startDate: z.iso.date(),
-  days: z.number().int().min(1).max(7),
+  days: z.number().int().min(1).max(MAX_PLANNER_DAYS),
   hub: z.enum(HUBS).nullable(),
   pace: z.enum(PACES),
   interests: z.array(z.enum(INTERESTS)).max(INTERESTS.length),
@@ -13,6 +19,11 @@ export const TripSettingsSchema = z.object({
   maxPrice: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
   dayTrip: z.enum(["auto", "none"]),
 }) satisfies z.ZodType<TripSettings>;
+
+/** Trip length for an inclusive start–end range, kept between 1 and `max` days. */
+export function tripLength(start: IsoDate, end: IsoDate, max = MAX_TRIP_DAYS): number {
+  return Math.min(Math.max(daysBetween(start, end) + 1, 1), max);
+}
 
 /** Next Friday at least three weeks out: far enough to book most places, and a weekend trip. */
 export function defaultStartDate(today: IsoDate): IsoDate {

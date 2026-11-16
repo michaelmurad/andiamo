@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @import "./andiamo.css";
+
+/* Native controls (the date picker's calendar and icon) follow the same theme as the tokens.
+   Mirrors the theme selectors in andiamo.css, which is generated and can't hold this. */
+:root {
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+}

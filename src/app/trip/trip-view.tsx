@@ -2,10 +2,11 @@
 
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, use, useMemo, useState } from "react";
 import { BrowseRow, DayColumn, TripHeader, type DaySlot, type DayStop, type LegMode } from "@/components/andiamo";
 import { fromSearchParams } from "@/lib/plan/settings";
 import type { Hub } from "@/lib/data/types";
+import type { TripSettings } from "@/lib/plan/types";
 import type { Plan, Slot, Stop } from "@/lib/plan/types";
 import { directionsUrl, type PlaceView } from "@/lib/plan/view";
 import { TripLoading } from "./trip-loading";
@@ -28,49 +29,53 @@ const SLOT_LABEL: Record<Slot, DaySlot["label"]> = {
 };
 const SLOT_ORDER: Slot[] = ["morning", "lunch", "afternoon", "dinner", "evening"];
 
-type PlanResult = { key: string; data?: PlanResponse; error?: string; retryAfterSeconds?: number };
+type PlanResult = { data?: PlanResponse; error?: string; retryAfterSeconds?: number };
 
 /**
- * One request per trip key at a time. React mounts effects twice in development, and the planner is a paid model
- * call, so a remount joins the request already in flight instead of starting another.
+ * One request per trip, cached so every render reads the same promise: `use` needs a stable promise, React renders
+ * twice in development, and each request is a paid model call. Failures resolve to `{ error }` rather than
+ * rejecting, so the page shows its own wait or error screen instead of an error boundary; Try again drops the
+ * failed entry so the next render asks again.
  */
-const inFlight = new Map<string, Promise<PlanResult>>();
+const plans = new Map<string, Promise<PlanResult>>();
 
-function requestPlan(key: string, settings: unknown, notes: string): Promise<PlanResult> {
-  const pending = inFlight.get(key);
-  if (pending) return pending;
-  const request = fetch("/api/plan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ settings, notes }) })
-    .then(async (res): Promise<PlanResult> => {
-      if (res.ok) return { key, data: (await res.json()) as PlanResponse };
-      const body = (await res.json().catch(() => ({}))) as { error?: string; retryAfterSeconds?: number };
-      return { key, error: body.error ?? "The planner didn't answer", retryAfterSeconds: res.status === 429 ? (body.retryAfterSeconds ?? 60) : undefined };
-    })
-    .catch((): PlanResult => ({ key, error: "Couldn't reach the planner" }))
-    .finally(() => inFlight.delete(key));
-  inFlight.set(key, request);
+function requestPlan(key: string, settings: TripSettings, notes: string): Promise<PlanResult> {
+  let request = plans.get(key);
+  if (!request) {
+    request = fetch("/api/plan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ settings, notes }) })
+      .then(async (res): Promise<PlanResult> => {
+        if (res.ok) return { data: (await res.json()) as PlanResponse };
+        const body = (await res.json().catch(() => ({}))) as { error?: string; retryAfterSeconds?: number };
+        return { error: body.error ?? "The planner didn't answer", retryAfterSeconds: res.status === 429 ? (body.retryAfterSeconds ?? 60) : undefined };
+      })
+      .catch((): PlanResult => ({ error: "Couldn't reach the planner" }));
+    plans.set(key, request);
+  }
   return request;
 }
 
 export function TripView() {
   const params = useSearchParams();
   const { settings, notes } = useMemo(() => fromSearchParams(params, format(new Date(), "yyyy-MM-dd")), [params]);
-  const [result, setResult] = useState<PlanResult | null>(null);
-  // Bumped to request the same trip again (after a rate-limit wait, or the Try again button).
+  const key = params.toString();
+  // Bumped by Try again (or the end of a rate-limit wait) to render again after the failed request is dropped.
   const [attempt, setAttempt] = useState(0);
-  const key = `${params.toString()}#${attempt}`;
-  const retry = useCallback(() => setAttempt((n) => n + 1), []);
+  const retry = () => {
+    plans.delete(key);
+    setAttempt((n) => n + 1);
+  };
 
-  useEffect(() => {
-    let cancelled = false;
-    requestPlan(key, settings, notes).then((r) => !cancelled && setResult(r));
-    return () => {
-      cancelled = true;
-    };
-  }, [key, settings, notes]);
+  return (
+    <Suspense fallback={<TripLoading hub={settings.hub} />}>
+      <TripPlan plan={requestPlan(key, settings, notes)} retryKey={`${key}#${attempt}`} onRetry={retry} />
+    </Suspense>
+  );
+}
 
-  if (!result || result.key !== key) return <TripLoading hub={settings.hub} />;
+function TripPlan({ plan: request, retryKey, onRetry }: { plan: Promise<PlanResult>; retryKey: string; onRetry: () => void }) {
+  const result = use(request);
   if (result.error || !result.data) {
-    return <TripWait key={key} retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={retry} />;
+    return <TripWait key={retryKey} retryAfterSeconds={result.retryAfterSeconds} message={result.error} onRetry={onRetry} />;
   }
 
   const { plan, places } = result.data;
@@ -82,7 +87,7 @@ export function TripView() {
         title={plan.hub}
         meta={[`${shortDate(plan.settings.startDate)} – ${shortDate(last)}`, `${capitalize(plan.settings.pace)} pace`]}
       />
-      <div className="grid snap-x grid-cols-[repeat(3,minmax(300px,1fr))] items-start gap-4 overflow-x-auto pb-2">
+      <div className="grid snap-x grid-flow-col auto-cols-[minmax(300px,1fr)] items-start gap-4 overflow-x-auto pb-2">
         {plan.days.map((day) => (
           <DayColumn
             key={day.date}

@@ -1,4 +1,4 @@
-import { addDays, format, getDay, parseISO } from "date-fns";
+import { addDays, differenceInCalendarDays, format, getDay, parseISO } from "date-fns";
 
 /** 0 = Sunday … 6 = Saturday, the same numbering as Date#getDay. */
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -29,6 +29,8 @@ export const weekdayOf = (date: IsoDate) => getDay(parseISO(date)) as Weekday;
 export const monthOf = (date: IsoDate) => parseISO(date).getMonth() + 1;
 export const dayOfMonth = (date: IsoDate) => parseISO(date).getDate();
 export const plusDays = (date: IsoDate, days: number): IsoDate => format(addDays(parseISO(date), days), "yyyy-MM-dd");
+/** Calendar days from `from` to `to`: 0 for the same day, negative when `to` is earlier. */
+export const daysBetween = (from: IsoDate, to: IsoDate) => differenceInCalendarDays(parseISO(to), parseISO(from));
 /** "Tue 14 Apr" */
 export const shortDate = (date: IsoDate) => format(parseISO(date), "EEE d MMM");
 
