@@ -1,0 +1,45 @@
+/* Waiting and error screen for the trip page (plain CSS: this project's Tailwind loader disables CSS Modules).
+   Colours come only from Andiamo tokens. Motion runs only when the visitor hasn't asked for reduced motion. */
+
+.tw-ring-track { fill: none; stroke: var(--line); stroke-width: 6; }
+.tw-ring {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 100px 100px;
+  transition: stroke-dashoffset 1s linear;
+}
+.tw-saucer { fill: var(--surface-raised); stroke: var(--line-strong); stroke-width: 2; }
+.tw-cup { fill: var(--art-earth); }
+.tw-band { fill: var(--art-light); opacity: 0.85; }
+.tw-handle { fill: none; stroke: var(--art-earth); stroke-width: 7; }
+.tw-coffee { fill: var(--art-deep); }
+.tw-crema { fill: var(--art-sun); opacity: 0.55; transform-box: fill-box; transform-origin: 50% 50%; }
+.tw-steam { fill: none; stroke: var(--ink-muted); stroke-width: 3.5; stroke-linecap: round; opacity: 0.7; }
+.tw-bean { fill: var(--art-earth); }
+.tw-bean-line { fill: none; stroke: var(--art-deep); stroke-width: 1.2; stroke-linecap: round; }
+.tw-orbit { transform-origin: 100px 100px; }
+.tw-count { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tw-steam { animation: tw-steam 3s ease-in-out infinite both; }
+  .tw-steam-2 { animation-delay: 1s; }
+  .tw-steam-3 { animation-delay: 2s; }
+  .tw-crema { animation: tw-swirl 4s ease-in-out infinite; }
+  .tw-orbit { animation: tw-orbit 6s linear infinite; }
+  .tw-cup-group { animation: tw-settle 0.9s cubic-bezier(0.2, 0.8, 0.2, 1.2) both; transform-box: fill-box; transform-origin: 50% 100%; }
+  .tw-text { animation: tw-rise 0.6s ease-out 0.2s both; }
+}
+
+@keyframes tw-steam {
+  0% { transform: translateY(4px); opacity: 0; }
+  35% { opacity: 0.75; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+/* The crema breathes and drifts; a full rotation would turn the flat ellipse into a vertical streak. */
+@keyframes tw-swirl { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.6) translateX(6px); } }
+@keyframes tw-orbit { to { transform: rotate(360deg); } }
+@keyframes tw-settle { from { transform: translateY(-18px) scale(0.92); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes tw-rise { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
