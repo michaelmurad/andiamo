@@ -89,7 +89,8 @@ async function call(prompt: ReturnType<typeof loadPrompt>, system: string, messa
       messages,
     });
   } catch (error) {
-    if (isTimeoutError(error)) throw new EditUnavailableError("Timed out");
+    // Timeouts and unreachable hosts mean the model is unavailable, not that the request was wrong.
+    if (isTimeoutError(error) || error instanceof Anthropic.APIConnectionError) throw new EditUnavailableError("Model unreachable", { cause: error });
     throw error;
   }
 }
