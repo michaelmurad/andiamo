@@ -152,7 +152,7 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
           <h2 className="mb-1 text-overline uppercase text-ink-muted">Left out for you</h2>
           {plan.avoided.map((u) => {
             const p = places[u.placeId];
-            return p && <BrowseRow key={u.placeId} name={p.name} type={p.category} kind={p.kind} rating={p.rating} reason={u.reason} />;
+            return p && <BrowseRow key={u.placeId} name={p.name} type={p.category} kind={p.kind} photo={p.photo} rating={p.rating} reason={u.reason} />;
           })}
         </section>
       )}
