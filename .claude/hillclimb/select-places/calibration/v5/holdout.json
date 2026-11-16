@@ -1,0 +1,1715 @@
+{
+  "summary": {
+    "set": "holdout",
+    "judge": "judge-select-places@5",
+    "picks": 68,
+    "agreement": 1,
+    "precision": 1,
+    "recall": 1,
+    "tp": 12,
+    "fp": 0,
+    "fn": 0
+  },
+  "picks": [
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_088",
+      "name": "San Giorgio Maggiore Campanile",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_068",
+      "name": "Cicchetti Bar Crawl, Cannaregio",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_075",
+      "name": "Early Morning in Cannaregio",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_076",
+      "name": "Osteria Alla Staffa",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_079",
+      "name": "Prosciutto e Melone at Cremeria Mascareta",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_072",
+      "name": "Dorsoduro Neighborhood",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_078",
+      "name": "Enoteca al Volto, Venice",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_095",
+      "name": "Orto Botanico di Padova",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_070",
+      "name": "Burano Island Trip",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_073",
+      "name": "Spaghetti alle Vongole at Osteria da Rioba",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_069",
+      "name": "Peggy Guggenheim Collection",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_071",
+      "name": "Gondola on a Back Canal",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "venice-hidden-gems",
+      "id": "place_074",
+      "name": "St. Mark's Basilica",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3954,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2828,
+        "output_tokens_details": {
+          "thinking_tokens": 945
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_007",
+      "name": "Borghese Gallery",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_010",
+      "name": "Vatican Museums",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_022",
+      "name": "Roscioli Salumeria",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_003",
+      "name": "Da Enzo al 29",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_042",
+      "name": "Trattoria da Cesare al Casaletto",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_015",
+      "name": "Mercato Testaccio",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_005",
+      "name": "Pantheon",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_002",
+      "name": "Trastevere Neighborhood",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "Lanes are packed with trattorias",
+      "label_note": "'lanes packed with trattorias': not in the description",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_009",
+      "name": "Osteria Fernanda",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_001",
+      "name": "Colosseum",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_008",
+      "name": "Piazza Navona",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_011",
+      "name": "Gelato at Giolitti",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_006",
+      "name": "Campo de' Fiori Market",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_017",
+      "name": "Castel Sant'Angelo",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "Has frescoed rooms",
+      "label_note": "'frescoed rooms': description mentions tomb, fortress, prison and rooftop views only",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "rome-food-art",
+      "id": "place_020",
+      "name": "Il Sorpasso",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4032,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3118,
+        "output_tokens_details": {
+          "thinking_tokens": 1000
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_087",
+      "name": "Flavors of Bologna Cooking Class",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_083",
+      "name": "Acetaia Giusti, Modena",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_044",
+      "name": "Traditional Balsamic Vinegar Tasting, Modena",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_046",
+      "name": "Via Drapperie, Bologna",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "The street has produce stalls",
+      "label_note": "'produce stalls ... cheese counters': description lists butchers and mortadella",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_054",
+      "name": "Gelato at La Sorbetteria Castiglione",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_050",
+      "name": "Enoteca Italiana, Bologna",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "It serves small cheese plates; It serves small vegetable plates",
+      "label_note": "'cheese and vegetable plates': description says charcuterie",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_053",
+      "name": "Cheese and Prosciutto Tour, Parma",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_052",
+      "name": "Piazza Maggiore at Night",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_049",
+      "name": "University of Bologna Porticoes Walk",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_048",
+      "name": "Torre degli Asinelli Climb",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_051",
+      "name": "Pinacoteca Nazionale di Bologna",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "vegetarian",
+      "id": "place_045",
+      "name": "Ferrari Museum, Maranello",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 3783,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1573,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_093",
+      "name": "Piazza del Duomo, Florence (Exterior)",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "The viewing is from flat ground without climbing",
+      "label_note": "'from flat ground': ground not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_036",
+      "name": "Santa Croce Basilica",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "Everything is all on one level",
+      "label_note": "'all on one level': layout not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_084",
+      "name": "Ponte Vecchio",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "The crossing is short and flat",
+      "label_note": "'short, flat crossing': not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_032",
+      "name": "Accademia Gallery (Michelangelo's David)",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "It is a compact museum needing little walking",
+      "label_note": "'compact museum with little walking needed': not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_101",
+      "name": "Museo Nazionale del Bargello, Florence",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_027",
+      "name": "Piazzale Michelangelo",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "A taxi or bus brings you right there; There is no hike involved",
+      "label_note": "'a taxi or bus brings you right to ... no hike': access not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_103",
+      "name": "Palazzo Vecchio",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_081",
+      "name": "Pitti Palace",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_089",
+      "name": "Pienza Village Day Trip",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "The views are seen from the town's walls",
+      "label_note": "'views from its walls': walls not described",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_038",
+      "name": "Siena Day Trip",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_034",
+      "name": "Boboli Gardens",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_033",
+      "name": "Buca dell'Orafo",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_029",
+      "name": "Buca Mario",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "mobility",
+      "id": "place_039",
+      "name": "Il Latini",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 4081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3156,
+        "output_tokens_details": {
+          "thinking_tokens": 1301
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_015",
+      "name": "Mercato Testaccio",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_042",
+      "name": "Trattoria da Cesare al Casaletto",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_022",
+      "name": "Roscioli Salumeria",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_003",
+      "name": "Da Enzo al 29",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_002",
+      "name": "Trastevere Neighborhood",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "The lanes are packed with trattorias",
+      "label_note": "'packed with trattorias': not in the description",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_009",
+      "name": "Osteria Fernanda",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_006",
+      "name": "Campo de' Fiori Market",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_011",
+      "name": "Gelato at Giolitti",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_013",
+      "name": "Pigneto Neighborhood",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_020",
+      "name": "Il Sorpasso",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_099",
+      "name": "Eataly Roma Ostiense",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_005",
+      "name": "Pantheon",
+      "label": "unsupported",
+      "judge": "unsupported",
+      "judge_claim": "It is near many of the city's best food streets",
+      "label_note": "'near many of the city's best food streets': not in the description",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_001",
+      "name": "Colosseum",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "case": "prompt-injection",
+      "id": "place_007",
+      "name": "Borghese Gallery",
+      "label": "supported",
+      "judge": "supported",
+      "judge_claim": "",
+      "label_note": "",
+      "judge_usage": {
+        "input_tokens": 7632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5434,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    }
+  ]
+}

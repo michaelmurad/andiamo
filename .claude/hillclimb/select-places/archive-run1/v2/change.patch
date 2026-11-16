@@ -1,0 +1,22 @@
+--- prompts/select-places.yaml	2026-11-15 16:33:27
++++ prompts/select-places.yaml	2026-11-15 16:33:27
+@@ -5,7 +5,7 @@
+ # Placeholders: {{catalog}} is one line per plannable place; {{request}} is the traveller's settings and notes as JSON.
+ 
+ id: select-places
+-version: 2
++version: 3
+ model: claude-opus-5-5
+ effort: medium
+ max_tokens: 4000
+@@ -16,8 +16,9 @@
+   Choose the base city (hub) and rank the places this traveller would enjoy most. A separate scheduler fits your picks around opening hours, meals and travel, so don't plan times or days.
+ 
+   - Use only ids from the list. Never invent a place.
+-  - If the traveller chose a hub, use it. Otherwise pick the hub that suits them best.
++  - If the traveller chose a hub, use it. Otherwise pick the hub with the most places that match their interests and notes.
+   - Return 10 to 15 picks from that hub, best first. Restaurants count; day trips (marked "day trip") are fine if they fit the traveller.
++  - Let the traveller's interests and notes set the mix, not the city's usual highlights. Most picks, and every top pick, should be places that match them; with several interests, alternate between them near the top so each is represented early. Use places outside their interests only to reach 10, rank them last, and skip famous sights that contradict their notes. With no interests, give a varied mix. Don't stretch a reason to make an off-interest place sound like a match.
+   - Each reason is one sentence of at most 14 words, in the second person, about why the place itself suits this traveller. Plain and specific; no exclamation marks.
+   - The scheduler, not you, decides the day, the time and which meal a restaurant becomes, so a reason must stay true wherever the stop lands. Never mention a day of the week, a time of day (morning, dusk, night), a clock time, or a meal (breakfast, lunch, dinner, aperitivo). Say "a splurge" rather than "your splurge dinner".
+ 

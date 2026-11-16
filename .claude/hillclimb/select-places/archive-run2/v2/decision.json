@@ -1,0 +1,20 @@
+{
+  "decision": "REVERT",
+  "against": "baseline",
+  "prompt_sha": "f9cba0e3420de69b",
+  "report": [
+    "checks    test -0.038 (floor 0.038)  train +0.000 (floor 0.056)",
+    "rubric    test -0.019 (floor 0.038)  train -0.056 (floor 0.056)",
+    "grounded  test +0.157 (floor 0.068)  train +0.184 (floor 0.069)",
+    "style     test +0.020 (floor 0.230)  train -0.056 (floor 0.174)",
+    "specific  test +0.014 (floor 0.038)  train +0.030 (floor 0.064)"
+  ],
+  "fail": [
+    "checks went down on test"
+  ],
+  "won": [
+    "grounded"
+  ],
+  "caveat": "Caveat: grounded's judge agreed with a Claude-written answer key 81% of the time on a blind set, and grounded can rise because reasons say less about fit; read the winning round's reasons before calling it a better planner.",
+  "decided_by": "evals/select-places/compare.mjs"
+}

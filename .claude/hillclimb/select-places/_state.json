@@ -1,0 +1,197 @@
+{
+  "flow": "select-places",
+  "metrics": [
+    {
+      "id": "checks",
+      "label": "All checks",
+      "kind": "binary"
+    },
+    {
+      "id": "rubric",
+      "label": "Rubric",
+      "kind": "float",
+      "scale": 1
+    },
+    {
+      "id": "grounded",
+      "label": "Grounded",
+      "kind": "float",
+      "scale": 1
+    },
+    {
+      "id": "style",
+      "label": "Reason style",
+      "kind": "float",
+      "scale": 1
+    },
+    {
+      "id": "specific",
+      "label": "Specific",
+      "kind": "float",
+      "scale": 1
+    },
+    {
+      "id": "valid_ids",
+      "label": "Valid ids",
+      "kind": "binary"
+    },
+    {
+      "id": "in_hub",
+      "label": "In hub",
+      "kind": "binary"
+    },
+    {
+      "id": "hub_ok",
+      "label": "Hub ok",
+      "kind": "binary"
+    },
+    {
+      "id": "count_ok",
+      "label": "10-15 picks",
+      "kind": "binary"
+    },
+    {
+      "id": "no_timing",
+      "label": "No timing",
+      "kind": "binary"
+    },
+    {
+      "id": "constraints",
+      "label": "Constraints",
+      "kind": "binary"
+    }
+  ],
+  "perf_fields": [
+    {
+      "id": "latency_s",
+      "label": "Latency",
+      "unit": "s"
+    },
+    {
+      "id": "picks",
+      "label": "Picks"
+    },
+    {
+      "id": "in_tokens",
+      "label": "In tok"
+    },
+    {
+      "id": "out_tokens",
+      "label": "Out tok"
+    },
+    {
+      "id": "cache_read_tokens",
+      "label": "Cache read"
+    }
+  ],
+  "harness_paths": [
+    "evals/select-places/cases.yaml",
+    "evals/select-places/grade.ts",
+    "evals/select-places/judge.yaml",
+    "src/lib/ai/select.ts",
+    "src/lib/ai/prompts.ts",
+    "evals/select-places/reviewer.md",
+    "evals/select-places/calibration/grounding-labels.yaml",
+    "src/data/italy.json",
+    "src/lib/data/places.ts",
+    "src/lib/data/normalize.ts",
+    "src/lib/data/overrides.ts",
+    "src/lib/data/parse-hours.ts",
+    "src/lib/data/types.ts",
+    "src/lib/plan/settings.ts",
+    "src/lib/plan/types.ts",
+    "evals/select-places/calibrate.mjs",
+    "evals/select-places/calibration/cases.yaml",
+    "evals/select-places/calibration/generate.mjs",
+    "evals/select-places/lockbox.yaml",
+    "evals/select-places/compare.mjs",
+    "evals/select-places/loop-config.json",
+    "evals/select-places/compare-lib.mjs",
+    "evals/select-places/leak-audit.md",
+    "evals/select-places/grade.test.ts",
+    "evals/select-places/compare-lib.test.ts",
+    "src/lib/ai/select.test.ts",
+    "src/lib/ai/prompts.test.ts",
+    "src/lib/data/normalize.test.ts",
+    "src/lib/data/parse-hours.test.ts",
+    "evals/select-places/feasibility.test.ts"
+  ],
+  "harness_sha": "abf868a7c280568519a69237786e61b9c80def2645f9f0cafeb7917019904ed5",
+  "train_ids": [
+    "auto-food",
+    "bologna-food",
+    "italian-notes",
+    "mobility",
+    "night-owls",
+    "no-interests",
+    "no-museums",
+    "rome-food-art",
+    "vegetarian"
+  ],
+  "test_ids": [
+    "anniversary-splurge",
+    "auto-art",
+    "auto-outdoors",
+    "conflicting-hub",
+    "florence-art",
+    "honeymoon",
+    "kids",
+    "lake-como",
+    "milan-art-food",
+    "prompt-injection",
+    "rainy",
+    "student-budget",
+    "venice-hidden-gems"
+  ],
+  "split_seed": "split-seed-2 (sha256 order within tags[0]), 40% train",
+  "reps": 2,
+  "goal": {
+    "rule": "evals/select-places/compare.mjs decides KEEP or REVERT; see its header",
+    "order": [
+      "checks (test) may not go down",
+      "rubric (test) may not go down beyond noise",
+      "checks, rubric or grounded must improve beyond noise (grounded added in run 2 by the user)"
+    ],
+    "holds": [
+      "style, specific: no drop beyond noise",
+      "grounded: test mean drop <= 0.10, per case <= 0.30",
+      "zero error rows",
+      "no more no-shortlist rows than best",
+      "median latency <= 1.5x best",
+      "mean cost per row <= 1.5x best",
+      "train checks, rubric and grounded: no drop beyond their train floors"
+    ],
+    "noise": "computed by compare.mjs from the baseline rows on every run, per split"
+  },
+  "approve_each_round": false,
+  "scope": {
+    "will_change": [
+      "prompts/select-places.yaml: system and user text, effort, max_tokens"
+    ],
+    "wont_touch": [
+      "model (stays claude-opus-5-5)",
+      "every file in harness_paths",
+      "app code, scheduler, UI"
+    ]
+  },
+  "budget_usd": 25,
+  "stopping": "run 2: stop after v2 (loop-config.json max_round = 2, enforced by compare.mjs)",
+  "lockbox": "evals/select-places/lockbox.yaml: scored only on the baseline prompt and the final prompt; never given to an analyzer",
+  "analyzer_inputs": "per round, a scratch copy of the train-split rows and traces only",
+  "config": "evals/select-places/loop-config.json (hashed): locked model, reps, train/test split. train_ids/test_ids here are display copies for the report.",
+  "round_procedure": [
+    "1. Analyzer (fresh agent) gets a scratch copy of train-split rows and traces, the current prompt, metrics.md; proposes one change.",
+    "2. Apply the change to prompts/select-places.yaml; save vN/change.md and vN/change.patch.",
+    "3. Leak auditor (fresh agent, brief evals/select-places/leak-audit.md) judges the diff against cases.yaml and lockbox.yaml. LEAK: revert without running.",
+    "4. npm run eval -- --variant vN --reps 2 (the runner lints the prompt and refuses on a hit).",
+    "5. npm run eval:compare -- vN: KEEP records best; REVERT restores the best round's prompt from its prompt.yaml snapshot.",
+    "6. Stop after 3 rounds in a row without KEEP, 8 rounds, or the budget. Then run the lockbox on the final prompt and npm run eval:compare -- --lockbox vN."
+  ],
+  "residual_risk": "Agents with file access can read cases.yaml and lockbox.yaml; nothing here can prevent that. Leaks are caught at the output (string lint every run, semantic leak audit every round), not prevented at the input.",
+  "adopted": {
+    "variant": "v2",
+    "by": "user",
+    "date": "2026-11-15",
+    "note": "User adopted run 2's v2 prompt, overriding compare.mjs's REVERT (test checks -0.038 from a timing-guard false positive on 'today'). state.best is unchanged; compare.mjs's record stands."
+  }
+}

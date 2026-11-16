@@ -1,0 +1,16 @@
+{
+  "decision": "REVERT",
+  "against": "baseline",
+  "prompt_sha": "fc3c4991872154da",
+  "report": [
+    "checks    test +0.056 (floor 0.218)  train +0.000 (floor 0.038)",
+    "rubric    test -0.056 (floor 0.056)  train +0.019 (floor 0.038)",
+    "grounded  test +0.106 (floor 0.056)  train +0.073 (floor 0.057)",
+    "style     test +0.032 (floor 0.181)  train -0.088 (floor 0.196)",
+    "specific  test +0.003 (floor 0.056)  train +0.011 (floor 0.038)"
+  ],
+  "fail": [
+    "neither checks nor rubric improved on test beyond noise"
+  ],
+  "decided_by": "evals/select-places/compare.mjs"
+}
