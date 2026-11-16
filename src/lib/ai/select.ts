@@ -20,8 +20,8 @@ export interface Selection {
   prompt: string;
 }
 
-/** One line per plannable place. Stable across requests, so it sits in the cached system prompt. */
-const CATALOG = PLACES.filter((p) => p.autoPlan)
+/** One line per plannable place. Stable across requests, so it sits in the cached system prompt. Shared with the edit prompt. */
+export const CATALOG = PLACES.filter((p) => p.autoPlan)
   .map((p) =>
     [p.id, p.name, p.type, p.excursion ? `${p.hub} (day trip: ${p.excursion.zone})` : p.hub, p.tags.join(","),
       p.priceLevel === 0 ? "free" : "€".repeat(p.priceLevel), p.rating, p.description].join(" | "),

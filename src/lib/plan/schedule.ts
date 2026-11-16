@@ -43,7 +43,18 @@ export interface ScheduleInput {
   places: Place[];
   /** The model's ranked picks. Optional: without them the scheduler still plans from the scores. */
   shortlist?: ShortlistPick[];
+  /** The traveller's locked stops: fixed points, shown as locked. */
   locks?: Lock[];
+  /** Stops an edit keeps where they are. Fixed points like locks, but not shown as locked. */
+  pins?: Lock[];
+  /** Places never planned automatically. A lock or pin for one still places it. */
+  excluded?: string[];
+  /** The day trip to keep, or null for none. Left out, the scheduler chooses. */
+  trip?: Excursion | null;
+  /** A pace per day, by index. Days left out use the trip's pace. */
+  dayPaces?: (Pace | undefined)[];
+  /** Days returned exactly as given, so an edit to one day never moves another. Their places count as used. */
+  keep?: Day[];
 }
 
 /**
@@ -65,37 +76,60 @@ export function schedule(input: ScheduleInput): Plan {
   const byId = new Map(places.map((p) => [p.id, p]));
   const reasons = new Map((input.shortlist ?? []).map((p) => [p.id, p.reason]));
 
-  const locks = (input.locks ?? []).filter((l) => l.day >= 0 && l.day < dates.length && byId.has(l.placeId));
-  const used = new Set(locks.map((l) => l.placeId));
+  const valid = (l: Lock) => l.day >= 0 && l.day < dates.length && byId.has(l.placeId);
+  const userLocks = (input.locks ?? []).filter(valid);
+  const lockedIds = new Set(userLocks.map((l) => l.placeId));
+  const locks = [
+    ...userLocks.map((l) => ({ ...l, user: true })),
+    ...(input.pins ?? []).filter((l) => valid(l) && !lockedIds.has(l.placeId)).map((l) => ({ ...l, user: false })),
+  ].filter((l, i, all) => all.findIndex((o) => o.placeId === l.placeId) === i);
+  const kept = new Map((input.keep ?? []).filter((d) => d.index >= 0 && d.index < dates.length).map((d) => [d.index, d]));
+  const used = new Set([...locks.map((l) => l.placeId), ...[...kept.values()].flatMap((d) => d.stops.flatMap((s) => s.placeId ?? []))]);
   const lockedDays = new Set(locks.map((l) => l.day));
+  const excluded = new Set(input.excluded ?? []);
 
   const core = hubPlaces.filter((p) => p.autoPlan && !p.excursion);
-  const trip = settings.dayTrip === "auto" ? chooseExcursion(hubPlaces, core, dates, ctx, settings.pace, lockedDays) : null;
+  const trip =
+    input.trip !== undefined ? input.trip
+    : settings.dayTrip === "auto" ? chooseExcursion(hubPlaces, core, dates, ctx, settings.pace, lockedDays)
+    : null;
+  // The hotel stays put whatever is removed, so an edit never moves every travel leg.
   const hotel = medianPoint(core.map((p) => p.coords));
+  const pool = core.filter((p) => !excluded.has(p.id));
 
   const days: Day[] = dates.map((date, index) => {
+    const keep = kept.get(index);
+    if (keep) return keep;
     const zone = trip?.day === index ? trip.zone : null;
-    const zonePlaces = zone ? hubPlaces.filter((p) => p.autoPlan && p.excursion?.zone === zone) : [];
+    const zonePlaces = zone ? hubPlaces.filter((p) => p.autoPlan && p.excursion?.zone === zone && !excluded.has(p.id)) : [];
+    const pace = input.dayPaces?.[index] ?? settings.pace;
     return planDay({
       index,
       date,
       area: zone ?? hub,
       excursion: zone !== null,
       hotel,
-      daytime: zone ? zonePlaces : core,
-      lunch: zone ? zonePlaces : core,
-      dinner: zone ? [...zonePlaces, ...core] : core,
-      evening: core,
-      maxLeg: zone ? EXCURSION_MAX_LEG : PACE_RULES[settings.pace].maxLegMinutes,
-      locks: locks.filter((l) => l.day === index).map((l) => ({ place: byId.get(l.placeId)!, start: l.start })),
+      daytime: zone ? zonePlaces : pool,
+      lunch: zone ? zonePlaces : pool,
+      dinner: zone ? [...zonePlaces, ...pool] : pool,
+      evening: pool,
+      maxLeg: zone ? EXCURSION_MAX_LEG : PACE_RULES[pace].maxLegMinutes,
+      locks: locks.filter((l) => l.day === index).map((l) => ({ place: byId.get(l.placeId)!, start: l.start, user: l.user })),
       used,
       ctx,
-      pace: settings.pace,
+      pace,
       reasons,
     });
   });
 
-  return { hub, settings, days, unplaced: findUnplaced({ hub, hubPlaces, days, dates, ctx, settings, trip, shortlist: input.shortlist, byId }) };
+  return {
+    hub,
+    settings,
+    days,
+    unplaced: findUnplaced({ hub, hubPlaces, days, dates, ctx, settings, trip, shortlist: input.shortlist, byId, excluded }),
+    shortlist: input.shortlist ?? [],
+    excluded: [...excluded],
+  };
 }
 
 /** "Pick for me": the hub whose best places, for this traveller, add up highest. */
@@ -111,7 +145,7 @@ export function pickHub(places: Place[], dates: IsoDate[], ctx: ScoreContext): H
   return [...HUBS].sort((a, b) => total(b) - total(a))[0];
 }
 
-interface Excursion {
+export interface Excursion {
   zone: string;
   day: number;
 }
@@ -153,7 +187,8 @@ interface DayInput {
   dinner: Place[];
   evening: Place[];
   maxLeg: number;
-  locks: { place: Place; start: Minutes }[];
+  /** `user` is a traveller's lock; otherwise an edit's pin, placed the same way but not shown as locked. */
+  locks: { place: Place; start: Minutes; user: boolean }[];
   /** Shared across days so nothing is planned twice. */
   used: Set<string>;
   ctx: ScoreContext;
@@ -173,11 +208,13 @@ function planDay(d: DayInput): Day {
   let at = d.hotel;
   let lunch = false;
   let dinner = false;
-  let activityMinutes = 0;
-  let evenings = 0;
+  const inWindow = (start: Minutes, w: { from: Minutes; to: Minutes }) => start >= w.from && start <= w.to;
+  // Fixed stops use up the day's budget from the start, so the walk doesn't squeeze extra visits in around them.
+  const fixedVisits = pending.filter((l) => !(isMealPlace(l.place) && (inWindow(l.start, LUNCH) || inWindow(l.start, DINNER))));
+  let activityMinutes = fixedVisits.filter((l) => l.start < DINNER.from).reduce((sum, l) => sum + l.place.durationMinutes, 0);
+  let evenings = fixedVisits.filter((l) => l.start >= DINNER.from).length;
 
   const slotNow = (): Slot => (!lunch ? "morning" : !dinner ? "afternoon" : "evening");
-  const inWindow = (start: Minutes, w: { from: Minutes; to: Minutes }) => start >= w.from && start <= w.to;
   const lockInWindow = (w: { from: Minutes; to: Minutes }) => pending.some((l) => inWindow(l.start, w) && isMealPlace(l.place));
   /** The latest a visit may end and still reach the next locked stop on time. */
   const fitsBeforeLock = (p: Place, end: Minutes) =>
@@ -215,7 +252,8 @@ function planDay(d: DayInput): Day {
       const arrive = t + leg;
       let start = earliestStart(p, d.date, arrive, p.durationMinutes);
       // Too late for a fixed-start visit? The first one of the day may leave the hotel earlier.
-      if (start === null && stops.length === 0) start = earliestStart(p, d.date, pace.dayStart - EARLY_START + leg, p.durationMinutes);
+      // Not when a fixed stop already starts the morning: that stop is the day's start.
+      if (start === null && stops.length === 0 && !(pending[0] && pending[0].start < LUNCH.from)) start = earliestStart(p, d.date, pace.dayStart - EARLY_START + leg, p.durationMinutes);
       if (start === null || start - arrive > MAX_WAIT) continue;
       const end = start + p.durationMinutes;
       if (end > limitFor(p) || !fitsBeforeLock(p, end)) continue;
@@ -251,7 +289,7 @@ function planDay(d: DayInput): Day {
   };
 
   const placeLock = () => {
-    const { place, start: wanted } = pending.shift()!;
+    const { place, start: wanted, user } = pending.shift()!;
     const arrive = t + travel(at, place.coords).minutes;
     const start = Math.max(wanted, arrive);
     const meal = isMealPlace(place) && ((!lunch && inWindow(start, LUNCH)) || (lunch && !dinner && inWindow(start, DINNER)));
@@ -259,8 +297,12 @@ function planDay(d: DayInput): Day {
     const warnings = warningsFor(place, d.date);
     if (start > wanted) warnings.unshift("Moved later to fit the day");
     if (!isOpenFor(place, d.date, start, place.durationMinutes)) warnings.unshift("May be closed at this time");
-    push(place, place.name, slot, start, start + place.durationMinutes, { locked: true, warnings });
-    if (slot === "lunch") lunch = true;
+    const end = start + place.durationMinutes;
+    // As in the walk below: a long morning visit that runs through lunch replaces it.
+    const spansLunch = slot === "morning" && place.durationMinutes >= SPANS_LUNCH && end > LUNCH.to - MEAL_BUFFER;
+    if (spansLunch) warnings.push("Long visit: eat lunch on the way");
+    push(place, place.name, slot, start, end, { locked: user, warnings });
+    if (slot === "lunch" || spansLunch) lunch = true;
     if (slot === "dinner") dinner = true;
   };
 
@@ -305,7 +347,7 @@ function planDay(d: DayInput): Day {
   }
   while (pending.length) placeLock();
 
-  return { index: d.index, date: d.date, area: d.area, excursion: d.excursion, stops };
+  return { index: d.index, pace: d.pace, date: d.date, area: d.area, excursion: d.excursion, stops };
 }
 
 interface UnplacedInput {
@@ -318,6 +360,7 @@ interface UnplacedInput {
   trip: Excursion | null;
   shortlist?: ShortlistPick[];
   byId: Map<string, Place>;
+  excluded: Set<string>;
 }
 
 /** The places a traveller would expect to see: everything shortlisted, plus the top-scored in the hub. */
@@ -332,7 +375,7 @@ function findUnplaced(u: UnplacedInput): Unplaced[] {
   const result: Unplaced[] = [];
   for (const id of new Set(wanted)) {
     const p = u.byId.get(id);
-    if (!p || placed.has(id)) continue;
+    if (!p || placed.has(id) || u.excluded.has(id)) continue;
     if (p.sameSpotAs.some((other) => placed.has(other))) continue;
     result.push({ placeId: id, reason: whyUnplaced(p, u) });
   }

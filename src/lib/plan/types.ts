@@ -55,6 +55,8 @@ export interface Stop {
 
 export interface Day {
   index: number;
+  /** Usually the trip's pace; an edit can change one day's ("Slower day 2"). */
+  pace: Pace;
   date: IsoDate;
   /** "Rome" or a day trip like "Lake Como". */
   area: string;
@@ -73,4 +75,8 @@ export interface Plan {
   days: Day[];
   /** High-value places that didn't make it, and why. Nothing is dropped silently. */
   unplaced: Unplaced[];
+  /** The model's ranked picks, kept so an edit re-plans with the same ranking and reasons. */
+  shortlist: ShortlistPick[];
+  /** Places the traveller removed. Never planned again unless they ask for one by name. */
+  excluded: string[];
 }
