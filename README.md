@@ -1,6 +1,6 @@
 # <img src="docs/andiamo-mark.svg" alt="" width="40" height="40"> Andiamo
 
-Andiamo plans short trips in Italy. Pick a base city, the dates, what you like and how busy you want the days, and you get a day-by-day plan of real places, each with a photo and the reason it's there. You change the plan with a swap or one sentence ("Slower day 2", "More food"), and every change can be undone.
+Andiamo plans short trips in Italy. Pick a base city, the dates, what you like and how busy you want the days, and you get a day-by-day plan of real places, each with a photo and the reason it's there. You change the plan with one sentence in the Ask box ("Slower day 2", "More food"), and every change can be undone.
 
 The model ranks and the code decides. Claude picks the base and ranks the places that suit you; a deterministic scheduler turns that ranking into days, checking opening hours, travel time and pace. If the model is unavailable, the scheduler plans the trip on its own, so you always get a plan.
 
