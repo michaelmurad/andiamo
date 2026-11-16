@@ -1,4 +1,4 @@
-# Andiamo
+# <img src="docs/andiamo-mark.svg" alt="" width="40" height="40"> Andiamo
 
 Andiamo plans short trips in Italy. Pick a base city, the dates, what you like and how busy you want the days, and you get a day-by-day plan of real places, each with a photo and the reason it's there. You change the plan with a swap or one sentence ("Slower day 2", "More food"), and every change can be undone.
 
