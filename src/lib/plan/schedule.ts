@@ -2,6 +2,7 @@ import type { Place, Hub } from "@/lib/data/types";
 import { HUBS } from "@/lib/data/types";
 import { medianPoint, travel, type Coords } from "@/lib/geo";
 import { hm, monthInRange, monthOf, tripDates, type IsoDate, type Minutes } from "@/lib/time";
+import { fallbackReason } from "./fallback-reason";
 import { availableOn, earliestStart, isOpenFor, unavailableReason } from "./availability";
 import { rankMap, score, timeOfDayFit, type ScoreContext } from "./score";
 import type { Day, Lock, Pace, Plan, ShortlistPick, Slot, Stop, TripSettings, Unplaced } from "./types";
@@ -193,7 +194,7 @@ function planDay(d: DayInput): Day {
       end,
       travel: leg && { minutes: leg.minutes, mode: leg.mode },
       locked: false,
-      why: place ? (d.reasons.get(place.id) || firstSentence(place.description)) : "Nothing in the dataset is open nearby; your pick",
+      why: place ? (d.reasons.get(place.id) || fallbackReason(place.description, place.name)) : "Nothing in the dataset is open nearby, so this one is your pick.",
       warnings: place ? warningsFor(place, d.date) : [],
       ...extra,
     });
@@ -375,9 +376,3 @@ function warningsFor(p: Place, date: IsoDate): string[] {
 
 const humanDays = (days: number) =>
   days >= 56 ? `${Math.round(days / 30)} months` : days >= 14 ? `${Math.round(days / 7)} weeks` : days === 7 ? "a week" : `${days} days`;
-
-function firstSentence(text: string, max = 110): string {
-  const sentence = text.split(/(?<=[.!?])\s|\s—\s/)[0];
-  if (sentence.length <= max) return sentence;
-  return `${sentence.slice(0, sentence.lastIndexOf(" ", max - 1))}…`;
-}
