@@ -87,7 +87,11 @@ export function directionsUrl(from: string | null, to: string, mode: "walking" |
 
 /** Views for every place a plan mentions. */
 export function placeViewsFor(plan: Plan, byId: ReadonlyMap<string, Place>): Record<string, PlaceView> {
-  const ids = [...plan.days.flatMap((d) => d.stops.map((s) => s.placeId)), ...plan.unplaced.map((u) => u.placeId)];
+  const ids = [
+    ...plan.days.flatMap((d) => d.stops.map((s) => s.placeId)),
+    ...plan.unplaced.map((u) => u.placeId),
+    ...plan.avoided.map((u) => u.placeId),
+  ];
   const views: Record<string, PlaceView> = {};
   for (const id of ids) {
     const p = id ? byId.get(id) : undefined;

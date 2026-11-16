@@ -145,6 +145,15 @@ function TripEditor({ initial }: { initial: PlanResponse }) {
           })}
         </section>
       )}
+      {plan.avoided.length > 0 && (
+        <section>
+          <h2 className="mb-1 text-overline uppercase text-ink-muted">Left out for you</h2>
+          {plan.avoided.map((u) => {
+            const p = places[u.placeId];
+            return p && <BrowseRow key={u.placeId} name={p.name} type={p.category} kind={p.kind} rating={p.rating} reason={u.reason} />;
+          })}
+        </section>
+      )}
       <div className="sticky bottom-6 z-10 flex flex-col items-center gap-3" aria-live="polite">
         {undoShown && (
           <div

@@ -146,3 +146,28 @@ describe.each(HUBS.flatMap((hub) => (["relaxed", "packed"] as const).map((pace) 
 describe("changedKeys", () => {
   it("is empty for the same plan", () => expect(changedKeys(PLAN, PLAN)).toEqual([]));
 });
+
+describe("places the request rules out", () => {
+  const avoid = PLAN.days.flatMap((d) => d.stops.filter((s) => s.placeId)).slice(0, 2).map((s) => ({ placeId: s.placeId!, reason: "You asked for no churches" }));
+  const plan = schedule({ settings: settings(), places: PLACES, avoid });
+
+  it("are never planned, and are reported with their reason", () => {
+    for (const a of avoid) expect(ids(plan)).not.toContain(a.placeId);
+    expect(plan.avoided).toEqual(avoid);
+    expect(plan.unplaced.map((u) => u.placeId)).not.toContain(avoid[0].placeId);
+  });
+
+  it("stay out through an edit", () => {
+    const r = edited(applyEdits(plan, [{ op: "setPace", day: 1, pace: "packed" }]));
+    for (const a of avoid) expect(ids(r.plan)).not.toContain(a.placeId);
+    expect(r.plan.avoided).toEqual(avoid);
+  });
+
+  it("are planned when the traveller asks for one by name, and stop being reported", () => {
+    const wanted = PLACE_BY_ID.get(avoid[0].placeId)!;
+    const day = plan.days.findIndex((d) => availableOn(wanted, d.date).ok);
+    const r = edited(applyEdits(plan, [{ op: "add", placeId: wanted.id, day: day + 1 }]));
+    expect(ids(r.plan)).toContain(wanted.id);
+    expect(r.plan.avoided.map((a) => a.placeId)).toEqual([avoid[1].placeId]);
+  });
+});

@@ -32,6 +32,7 @@ export async function planTrip(settings: TripSettings, notes: string, { useModel
     settings: { ...settings, hub: selection?.hub ?? settings.hub },
     places: PLACES,
     shortlist: selection?.picks,
+    avoid: selection?.avoid,
   });
   return { plan, places: placeViewsFor(plan, PLACE_BY_ID), source: selection ? "ai" : "fallback", prompt: selection?.prompt ?? null };
 }

@@ -49,6 +49,8 @@ export interface ScheduleInput {
   pins?: Lock[];
   /** Places never planned automatically. A lock or pin for one still places it. */
   excluded?: string[];
+  /** Places the traveller's request rules out, with why. Excluded like `excluded`, and reported in `avoided`. */
+  avoid?: Unplaced[];
   /** The day trip to keep, or null for none. Left out, the scheduler chooses. */
   trip?: Excursion | null;
   /** A pace per day, by index. Days left out use the trip's pace. */
@@ -87,21 +89,23 @@ export function schedule(input: ScheduleInput): Plan {
   const used = new Set([...locks.map((l) => l.placeId), ...[...kept.values()].flatMap((d) => d.stops.flatMap((s) => s.placeId ?? []))]);
   const lockedDays = new Set(locks.map((l) => l.day));
   const excluded = new Set(input.excluded ?? []);
+  const avoidIds = new Set((input.avoid ?? []).map((a) => a.placeId));
+  const out = (p: Place) => excluded.has(p.id) || avoidIds.has(p.id);
 
   const core = hubPlaces.filter((p) => p.autoPlan && !p.excursion);
   const trip =
     input.trip !== undefined ? input.trip
-    : settings.dayTrip === "auto" ? chooseExcursion(hubPlaces, core, dates, ctx, settings.pace, lockedDays)
+    : settings.dayTrip === "auto" ? chooseExcursion(hubPlaces.filter((p) => !out(p)), core.filter((p) => !out(p)), dates, ctx, settings.pace, lockedDays)
     : null;
   // The hotel stays put whatever is removed, so an edit never moves every travel leg.
   const hotel = medianPoint(core.map((p) => p.coords));
-  const pool = core.filter((p) => !excluded.has(p.id));
+  const pool = core.filter((p) => !out(p));
 
   const days: Day[] = dates.map((date, index) => {
     const keep = kept.get(index);
     if (keep) return keep;
     const zone = trip?.day === index ? trip.zone : null;
-    const zonePlaces = zone ? hubPlaces.filter((p) => p.autoPlan && p.excursion?.zone === zone && !excluded.has(p.id)) : [];
+    const zonePlaces = zone ? hubPlaces.filter((p) => p.autoPlan && p.excursion?.zone === zone && !out(p)) : [];
     const pace = input.dayPaces?.[index] ?? settings.pace;
     return planDay({
       index,
@@ -126,9 +130,11 @@ export function schedule(input: ScheduleInput): Plan {
     hub,
     settings,
     days,
-    unplaced: findUnplaced({ hub, hubPlaces, days, dates, ctx, settings, trip, shortlist: input.shortlist, byId, excluded }),
+    unplaced: findUnplaced({ hub, hubPlaces, days, dates, ctx, settings, trip, shortlist: input.shortlist, byId, excluded: new Set([...excluded, ...avoidIds]) }),
     shortlist: input.shortlist ?? [],
     excluded: [...excluded],
+    // A place asked for by name (a lock) is planned anyway; it stops being reported as left out.
+    avoided: (input.avoid ?? []).filter((a) => !days.some((d) => d.stops.some((s) => s.placeId === a.placeId))),
   };
 }
 

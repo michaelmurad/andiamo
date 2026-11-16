@@ -166,6 +166,7 @@ function reschedule(plan: Plan, day: number, pins: Lock[], extraLocks: Lock[] = 
     locks,
     pins,
     excluded: plan.excluded,
+    avoid: plan.avoided,
     trip: tripOf(plan),
     dayPaces: plan.days.map((d) => d.pace),
     keep: plan.days.filter((d) => d.index !== day),

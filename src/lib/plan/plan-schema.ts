@@ -42,6 +42,7 @@ const PlanShape = z.object({
   unplaced: z.array(z.object({ placeId: text(80), reason: text(200) })).max(60),
   shortlist: z.array(z.object({ id: text(80), reason: text(400) })).max(40),
   excluded: z.array(text(80)).max(60),
+  avoided: z.array(z.object({ placeId: text(80), reason: text(200) })).max(60),
 }) satisfies z.ZodType<Plan>;
 
 export const PlanSchema = PlanShape.refine(

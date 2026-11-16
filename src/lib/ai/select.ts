@@ -3,17 +3,22 @@ import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { z } from "zod";
 import { PLACE_BY_ID, PLACES } from "@/lib/data/places";
 import { HUBS, type Hub } from "@/lib/data/types";
-import type { ShortlistPick, TripSettings } from "@/lib/plan/types";
+import type { ShortlistPick, TripSettings, Unplaced } from "@/lib/plan/types";
 import { loadPrompt, render, type Prompt } from "./prompts";
 
 const SelectionSchema = z.object({
   hub: z.enum(HUBS),
+  /** Every place in the hub that suits the traveller, best first. */
   picks: z.array(z.object({ id: z.string(), reason: z.string() })),
+  /** Places the traveller's request rules out. The scheduler never plans these. */
+  avoid: z.array(z.object({ id: z.string(), reason: z.string() })),
 });
 
 export interface Selection {
   hub: Hub;
   picks: ShortlistPick[];
+  /** Places the request rules out, each with a short reason the traveller sees. Only places in the hub. */
+  avoid: Unplaced[];
   /** Ids the model returned that aren't in the dataset. Dropped, but counted so we can see it happen. */
   unknownIds: string[];
   /** e.g. "select-places@2": which prompt produced this, for evals and debugging. */
@@ -115,17 +120,28 @@ export function isTimeoutError(error: unknown): boolean {
 /** Validates the model's output against the dataset. The same code path in production and in the eval. */
 export function toSelection(settings: TripSettings, call: SelectCall): Selection | null {
   if (!call.output) return null;
-  const { hub, picks } = call.output;
-  const known = picks.filter((p) => PLACE_BY_ID.has(p.id));
+  const { picks, avoid } = call.output;
+  const hub = settings.hub ?? call.output.hub;
+  const inHub = (id: string) => PLACE_BY_ID.get(id)?.hub === hub;
+  // Avoid wins over picks: a place the request rules out is never planned, however it was ranked.
+  const avoided = new Map(avoid.filter((a) => inHub(a.id)).map((a) => [a.id, a]));
+  const known = picks.filter((p) => PLACE_BY_ID.has(p.id) && !avoided.has(p.id));
   return {
-    hub: settings.hub ?? hub,
+    hub,
     // The prompt forbids timing claims; this enforces it. A reason that slips through is blanked, and the
     // scheduler falls back to the place's own description. The pick and its rank are kept.
     picks: known.map((p) => (mentionsTiming(p.reason, PLACE_BY_ID.get(p.id)!.name) ? { ...p, reason: "" } : p)),
-    unknownIds: picks.filter((p) => !PLACE_BY_ID.has(p.id)).map((p) => p.id),
+    avoid: [...avoided.values()].map((a) => ({
+      placeId: a.id,
+      reason: !a.reason.trim() || a.reason.length > 80 || mentionsTiming(a.reason, PLACE_BY_ID.get(a.id)!.name) ? AVOID_FALLBACK : a.reason.trim(),
+    })),
+    unknownIds: [...picks, ...avoid].filter((p) => !PLACE_BY_ID.has(p.id)).map((p) => p.id),
     prompt: `${call.prompt.id}@${call.prompt.version}`,
   };
 }
+
+/** Said for an avoided place when the model's reason is missing, too long, or promises a time. */
+export const AVOID_FALLBACK = "Doesn't suit what you asked for";
 
 /**
  * Asks the model for a hub and a ranked shortlist. Returns null on any failure (no credentials, timeout,

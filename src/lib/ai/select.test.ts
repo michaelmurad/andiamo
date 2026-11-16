@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
-import { isTimeoutError, mentionsTiming, parseOutput } from "./select";
+import { PLACES } from "@/lib/data/places";
+import type { TripSettings } from "@/lib/plan/types";
+import { AVOID_FALLBACK, isTimeoutError, mentionsTiming, parseOutput, toSelection, type SelectCall, type SelectionOutput } from "./select";
 
 describe("mentionsTiming", () => {
   // The reasons from the first live run that contradicted where the scheduler put the stop.
@@ -92,5 +94,36 @@ describe("isTimeoutError", () => {
     expect(isTimeoutError(new Anthropic.APIConnectionError({ message: "reset" }))).toBe(false);
     expect(isTimeoutError(new Error("boom"))).toBe(false);
     expect(isTimeoutError(null)).toBe(false);
+  });
+});
+
+describe("toSelection", () => {
+  const ROME: TripSettings = { startDate: "2027-05-14", days: 3, hub: "Rome", pace: "balanced", interests: ["history"], avoidCrowds: false, maxPrice: 3, dayTrip: "auto" };
+  const rome = PLACES.filter((p) => p.hub === "Rome" && p.autoPlan);
+  const florence = PLACES.find((p) => p.hub === "Florence" && p.autoPlan)!;
+  const museum = rome.find((p) => p.type === "museum")!;
+  const site = rome.find((p) => p.type === "historic_site")!;
+  const call = (output: SelectionOutput) =>
+    ({ output, model: "m", usage: {}, stopReason: "end_turn", prompt: { id: "select-places", version: 4 }, system: "", user: "" }) as unknown as SelectCall;
+
+  it("drops a place from picks when the model also avoids it", () => {
+    const s = toSelection({ ...ROME }, call({ hub: "Rome", picks: [{ id: museum.id, reason: "x" }, { id: site.id, reason: "y" }], avoid: [{ id: museum.id, reason: "You asked for no museums" }] }))!;
+    expect(s.picks.map((p) => p.id)).toEqual([site.id]);
+    expect(s.avoid).toEqual([{ placeId: museum.id, reason: "You asked for no museums" }]);
+  });
+
+  it("ignores avoided places outside the hub, and counts unknown ids", () => {
+    const s = toSelection({ ...ROME }, call({ hub: "Rome", picks: [], avoid: [{ id: florence.id, reason: "x" }, { id: "place_999", reason: "x" }] }))!;
+    expect(s.avoid).toEqual([]);
+    expect(s.unknownIds).toEqual(["place_999"]);
+  });
+
+  it("replaces an avoid reason that is empty, too long or promises a time", () => {
+    const s = toSelection({ ...ROME }, call({
+      hub: "Rome",
+      picks: [],
+      avoid: [{ id: museum.id, reason: "" }, { id: site.id, reason: "Closed on Monday mornings when you're there" }],
+    }))!;
+    expect(s.avoid.map((a) => a.reason)).toEqual([AVOID_FALLBACK, AVOID_FALLBACK]);
   });
 });

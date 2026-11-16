@@ -5,7 +5,7 @@ import { parse } from "yaml";
 import { z } from "zod";
 import { parsePrompt, render } from "@/lib/ai/prompts";
 import { mentionsTiming, parseOutput, type SelectCall } from "@/lib/ai/select";
-import { PLACE_BY_ID } from "@/lib/data/places";
+import { PLACE_BY_ID, PLACES } from "@/lib/data/places";
 import { HUBS, PLACE_TYPES } from "@/lib/data/types";
 import { TripSettingsSchema } from "@/lib/plan/settings";
 import type { TripSettings } from "@/lib/plan/types";
@@ -98,13 +98,13 @@ export const METRICS = [
   { id: "valid_ids", label: "Valid ids", kind: "binary" },
   { id: "in_hub", label: "In hub", kind: "binary" },
   { id: "hub_ok", label: "Hub ok", kind: "binary" },
-  { id: "count_ok", label: "10–15 picks", kind: "binary" },
+  { id: "count_ok", label: "Ranks the hub", kind: "binary" },
   { id: "no_timing", label: "No timing", kind: "binary" },
   { id: "constraints", label: "Constraints", kind: "binary" },
 ] as const;
 
+/** The prompt asks for every suitable place in the hub, so at least this many, or all that aren't avoided. */
 const MIN_PICKS = 10;
-const MAX_PICKS = 15;
 const MAX_REASON_WORDS = 14;
 
 /** Words that say nothing about a particular place, plus the hub and satellite town names. */
@@ -175,7 +175,10 @@ export function codeChecks(c: EvalCase, call: SelectCall) {
   ];
   set("hub_ok", hubProblems.length === 0, hubProblems.join("; "));
 
-  set("count_ok", unique >= MIN_PICKS && picks.length <= MAX_PICKS, `${unique} distinct picks of ${picks.length}`);
+  const hubSize = PLACES.filter((p) => p.hub === hub && p.autoPlan).length;
+  const avoided = new Set((call.output.avoid ?? []).map((a) => a.id)).size;
+  const needed = Math.min(MIN_PICKS, hubSize - avoided);
+  set("count_ok", unique >= needed && picks.length <= hubSize, `${unique} distinct picks of ${picks.length}; ${hubSize} plannable in ${hub}, ${avoided} avoided`);
 
   const timing = picks.filter((p) => mentionsTiming(p.reason, PLACE_BY_ID.get(p.id)?.name)).map((p) => `${p.id}: "${p.reason}"`);
   set("no_timing", timing.length === 0, timing.join(" | "));

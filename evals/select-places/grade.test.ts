@@ -34,7 +34,7 @@ function oracle(c: EvalCase): SelectCall["output"] {
   ).sort((a, b) => a.priceLevel - b.priceLevel); // cheapest first, for price-share cases
   const first = allowed.filter((p) => k.include_any?.includes(p.id)).slice(0, 1);
   const picks = [...first, ...allowed.filter((p) => !first.includes(p))].slice(0, 10);
-  return { hub, picks: picks.map((p) => ({ id: p.id, reason: specificReason(p) })) };
+  return { hub, picks: picks.map((p) => ({ id: p.id, reason: specificReason(p) })), avoid: [] };
 }
 
 /** "You get the <word>." using the first description word that makes the reason specific. */
@@ -67,7 +67,7 @@ describe("codeChecks fails what it should", () => {
   });
 
   it("an empty shortlist fails the count", () => {
-    expect(codeChecks(c, call({ hub: good.hub, picks: [] })).grade.count_ok).toBe(0);
+    expect(codeChecks(c, call({ ...good, picks: [] })).grade.count_ok).toBe(0);
   });
 
   it("an invented id fails valid_ids", () => {
@@ -85,7 +85,7 @@ describe("codeChecks fails what it should", () => {
     const { grade, why } = codeChecks(c, call({ ...good, picks: [...seven, ...seven] }));
     expect(grade.valid_ids).toBe(0);
     expect(grade.count_ok).toBe(0);
-    expect(why.count_ok).toBe("7 distinct picks of 14");
+    expect(why.count_ok).toMatch(/^7 distinct picks of 14;/);
   });
 
   it("a place from another hub fails in_hub", () => {

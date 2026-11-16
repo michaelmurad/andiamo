@@ -20,13 +20,13 @@ const settings: TripSettings = {
 describe("planTrip", () => {
   beforeEach(() => {
     selectPlaces.mockReset();
-    selectPlaces.mockResolvedValue({ hub: "Venice", picks: [], unknownIds: [], prompt: "select-places@3" });
+    selectPlaces.mockResolvedValue({ hub: "Venice", picks: [], avoid: [], unknownIds: [], prompt: "select-places@4" });
   });
 
   it("asks the model by default", async () => {
     const r = await planTrip(settings, "");
     expect(selectPlaces).toHaveBeenCalledOnce();
-    expect(r).toMatchObject({ source: "ai", prompt: "select-places@3", plan: { hub: "Venice" } });
+    expect(r).toMatchObject({ source: "ai", prompt: "select-places@4", plan: { hub: "Venice" } });
   });
 
   it("never calls the model when it's turned off, and plans with the scheduler alone", async () => {

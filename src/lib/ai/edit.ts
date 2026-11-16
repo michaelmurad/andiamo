@@ -143,5 +143,7 @@ function describe(plan: Plan, request: string, answer?: Answer) {
       }),
     })),
     notPlanned: plan.unplaced.map((u) => ({ placeId: u.placeId, name: PLACE_BY_ID.get(u.placeId)?.name, reason: u.reason })),
+    // Left out because the traveller's request ruled them out. Add one only if they ask for it by name.
+    ruledOut: plan.avoided.map((u) => ({ placeId: u.placeId, name: PLACE_BY_ID.get(u.placeId)?.name, reason: u.reason })),
   };
 }

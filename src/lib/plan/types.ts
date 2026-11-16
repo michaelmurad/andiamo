@@ -79,4 +79,6 @@ export interface Plan {
   shortlist: ShortlistPick[];
   /** Places the traveller removed. Never planned again unless they ask for one by name. */
   excluded: string[];
+  /** Places the model left out because the traveller's request rules them out, with the reason shown to them. */
+  avoided: Unplaced[];
 }

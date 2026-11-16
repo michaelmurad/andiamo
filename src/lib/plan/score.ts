@@ -6,8 +6,10 @@ import type { Interest, ShortlistPick, TripSettings } from "./types";
 export const WEIGHTS = {
   rating: 0.35,
   interest: 0.4,
-  /** Bonus for a place the model shortlisted, scaled by rank. */
-  shortlist: 0.35,
+  /** Bonus for a place the model ranked, scaled by rank: the top pick gets all of it, the last almost none. */
+  shortlist: 0.5,
+  /** Penalty for a place the model saw and didn't rank: it plans only when nothing ranked fits. */
+  unranked: 0.25,
   crowds: 0.2,
   overBudget: 0.25,
   offSeason: 0.2,
@@ -40,6 +42,7 @@ export function score(place: Place, date: IsoDate, ctx: ScoreContext): number {
 
   const rank = shortlistRank?.get(place.id);
   if (rank !== undefined && shortlistRank) s += WEIGHTS.shortlist * (1 - rank / Math.max(shortlistRank.size, 1));
+  else if (shortlistRank?.size) s -= WEIGHTS.unranked;
 
   if (settings.avoidCrowds && place.tags.includes("tourist-heavy")) s -= WEIGHTS.crowds;
   if (place.priceLevel > settings.maxPrice) s -= WEIGHTS.overBudget * (place.priceLevel - settings.maxPrice);

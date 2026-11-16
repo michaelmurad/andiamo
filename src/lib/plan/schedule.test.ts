@@ -4,6 +4,7 @@ import { HUBS, type Hub } from "@/lib/data/types";
 import { hm, plusDays } from "@/lib/time";
 import { isOpenFor } from "./availability";
 import { DINNER, LUNCH, PACE_RULES, schedule } from "./schedule";
+import { rankMap, score, WEIGHTS } from "./score";
 import { PACES, type Pace, type Plan, type TripSettings } from "./types";
 
 const place = (id: string) => PLACE_BY_ID.get(id)!;
@@ -175,5 +176,27 @@ describe("schedule", () => {
     const plan = schedule({ settings: settings({ pace }), places: PLACES });
     const first = plan.days[0].stops[0];
     expect(first.start - (first.travel?.minutes ?? 0)).toBeGreaterThanOrEqual(PACE_RULES[pace].dayStart - 90);
+  });
+});
+
+describe("the model's ranking", () => {
+  const s = settings({ interests: ["history"] });
+  const date = s.startDate;
+  const ranked = PLACES.filter((p) => p.hub === "Rome" && p.autoPlan).slice(0, 3);
+  const other = PLACES.find((p) => p.hub === "Rome" && p.autoPlan && !ranked.includes(p))!;
+
+  it("lowers a place the model saw and didn't rank, but only when there is a ranking", () => {
+    const withRanking = score(other, date, { settings: s, shortlistRank: rankMap(ranked.map((p) => ({ id: p.id, reason: "" }))) });
+    const without = score(other, date, { settings: s });
+    expect(withRanking).toBeCloseTo(without - WEIGHTS.unranked);
+    expect(score(other, date, { settings: s, shortlistRank: new Map() })).toBeCloseTo(without);
+  });
+
+  it("gives the top pick the whole bonus and later picks less", () => {
+    const rank = rankMap(ranked.map((p) => ({ id: p.id, reason: "" })));
+    const bonus = (i: number) => score(ranked[i], date, { settings: s, shortlistRank: rank }) - score(ranked[i], date, { settings: s });
+    expect(bonus(0)).toBeCloseTo(WEIGHTS.shortlist);
+    expect(bonus(1)).toBeLessThan(bonus(0));
+    expect(bonus(2)).toBeLessThan(bonus(1));
   });
 });
