@@ -1,0 +1,17 @@
+{
+  "decision": "REVERT",
+  "against": "baseline (regrade-top15/baseline, prompt v3 regraded with the updated grader)",
+  "report": [
+    "checks    test +0.115 (floor 0.151)  train +0.111 (floor 0.056)",
+    "rubric    test -0.058 (floor 0.075)  train -0.037 (floor 0.056)",
+    "grounded  test -0.005 (floor 0.038)  train +0.000 (floor 0.056)",
+    "style     test +0.223 (floor 0.208)  train +0.338 (floor 0.282)",
+    "specific  test +0.000 (floor 0.038)  train +0.004 (floor 0.056)"
+  ],
+  "fail": [
+    "none of checks, rubric or grounded improved on test beyond noise"
+  ],
+  "won": [],
+  "decided_by": "compare-lib.mjs decide(), run by hand: compare.mjs compares against the recorded baseline, which was graded by the old grader",
+  "overridden": "Adopted by the user on 2026-11-15; see _state.json adopted."
+}

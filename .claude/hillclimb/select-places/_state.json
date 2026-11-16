@@ -189,9 +189,19 @@
   ],
   "residual_risk": "Agents with file access can read cases.yaml and lockbox.yaml; nothing here can prevent that. Leaks are caught at the output (string lint every run, semantic leak audit every round), not prevented at the input.",
   "adopted": {
-    "variant": "v2",
+    "variant": "v3",
+    "run": 3,
+    "prompt_version": "select-places@6",
     "by": "user",
     "date": "2026-11-15",
-    "note": "User adopted run 2's v2 prompt, overriding compare.mjs's REVERT (test checks -0.038 from a timing-guard false positive on 'today'). state.best is unchanged; compare.mjs's record stands."
-  }
+    "note": "User adopted run 3's v3 prompt (v6: ranks the whole hub and returns an avoid list), overriding the REVERT from compare-lib's decide(). Graded with the updated grader against the regraded baseline (regrade-top15/baseline): checks +0.115 test (floor 0.151) and +0.111 train (floor 0.056), rubric -0.058 test (floor 0.075), style +0.223 test. REVERT only because no win metric cleared the test noise floor. state.best is unchanged."
+  },
+  "previously_adopted": [
+    {
+      "variant": "v2",
+      "by": "user",
+      "date": "2026-11-15",
+      "note": "User adopted run 2's v2 prompt, overriding compare.mjs's REVERT (test checks -0.038 from a timing-guard false positive on 'today'). state.best is unchanged; compare.mjs's record stands."
+    }
+  ]
 }

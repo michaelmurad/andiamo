@@ -64,3 +64,22 @@ by review (reviews 7 and 8): narrowing "today" let real promises through ("Still
 stop."), and both exclusions are supported by the data (San Miniato's description puts a hike past Piazzale
 Michelangelo; Via Drapperie is mostly butchers and mortadella), so the guard and the cases stand as they were; (3) have a person label ~60 reasons
 so grounded can be trusted as a full target; (4) add harder cases, since the baseline is near the ceiling on these.
+
+## Run 3: the model ranks the whole hub (adopted by the user)
+
+**What changed.** A trip of 16 to 22 stops uses most of a hub's 15 to 29 places, so a 10-15 pick shortlist barely
+shaped the plan: the scheduler filled the rest from scores that never saw the notes, and "no museums" still got a
+museum. The prompt now ranks every suitable place and returns an `avoid` list from the notes, which the scheduler
+never plans (prompt v4, then v5 to keep price out of `avoid`, then v6 to narrow picks and apply the timing rule to
+every reason).
+
+**The grader changed with it.** Exclusions are checked on the trip the scheduler plans from the answer (avoid list
+applied); must-include places, price share and the judge's rubric read the top 15 picks, the old shortlist's
+size; timing, style and specific cover every pick. The judge prompt is unchanged. The run-3 baseline and v2 were
+regraded from their traces into `regrade-top15/`.
+
+**Result.** v6 (variant v3) against the regraded baseline: checks +0.115 test, +0.111 train; constraints on the
+planned trip 0.77 to 0.88 test; rubric -0.058 test, within noise; style +0.22. The rule said REVERT because no
+win metric cleared the test noise floor (0.151); the user adopted v6 anyway. Still failing: Via Drapperie on the
+vegetarian trip, Piazzale Michelangelo and the Pienza day trip for the cane walker, a splurge on the student
+budget (price never fills `avoid`), and St Mark's and the Doge's Palace ranked 13-14 for quiet Venice trips.
