@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code: other sessions' worktrees, and the eval runs' raw traces (20 MB; results.jsonl keeps every grade)
+/.claude/worktrees/
+/.claude/settings.local.json
+/.claude/hillclimb/**/traces/

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Andiamo</title>
+  <path d="M7 41 20.5 9.5Q24 1.5 27.5 9.5L41 41H34L24 16 14 41Z" fill="currentColor"/>
+  <path d="M10 33C18 23 29 36 39 25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
