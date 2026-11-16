@@ -85,7 +85,7 @@ function TripPlan({ plan: request, retryKey, onRetry }: { plan: Promise<PlanResu
         title={plan.hub}
         meta={[`${shortDate(plan.settings.startDate)} – ${shortDate(last)}`, `${capitalize(plan.settings.pace)} pace`]}
       />
-      <div className="grid snap-x grid-cols-[repeat(3,minmax(300px,1fr))] items-start gap-4 overflow-x-auto pb-2">
+      <div className="grid snap-x grid-flow-col auto-cols-[minmax(300px,1fr)] items-start gap-4 overflow-x-auto pb-2">
         {plan.days.map((day) => (
           <DayColumn
             key={day.date}

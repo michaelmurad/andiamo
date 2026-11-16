@@ -1,10 +1,13 @@
 "use client";
 
+import { format } from "date-fns";
 import Form from "next/form";
-import { useState } from "react";
+import { Suspense, useState, type ReactNode } from "react";
 import { Button, Chip, HubCard, Icon, PaceToggle, type IconName, type PlaceKind } from "@/components/andiamo";
 import { HUBS as HUB_NAMES } from "@/lib/data/types";
+import { MAX_TRIP_DAYS, defaultSettings, tripLength } from "@/lib/plan/settings";
 import type { Interest, Pace } from "@/lib/plan/types";
+import { plusDays, shortDate } from "@/lib/time";
 
 const HUBS: { name: string; blurb: string; kind: PlaceKind }[] = [
   { name: "Rome", blurb: "Ruins and late dinners", kind: "history" },
@@ -41,7 +44,7 @@ export function SetupForm() {
   const toggle = (label: string) =>
     setInterests((current) => (current.includes(label) ? current.filter((l) => l !== label) : [...current, label]));
 
-  // A GET form: the trip page reads everything from the URL (the start date defaults there when it's missing).
+  // A GET form: the trip page reads everything from the URL (the dates default there when they're missing).
   // The cards, chips and toggle are buttons, so their choices travel in hidden fields.
   return (
     <Form action="/trip" className="flex flex-col gap-8">
@@ -52,11 +55,10 @@ export function SetupForm() {
 
       <section>
         <h2 className="mb-3 text-overline uppercase text-ink-muted">When</h2>
-        {/* Placeholder until the date picker exists. The trip page defaults to a Friday three weeks out. */}
-        <span className="inline-flex h-13 items-center gap-3 rounded-md border border-line-strong bg-surface-raised px-4 text-body font-semibold">
-          <Icon name="calendar-days" size={20} className="text-ink-muted" />
-          Fri – Sun, three weeks from now
-        </span>
+        {/* Today's date is only known per visit, so the picker renders in the browser. */}
+        <Suspense fallback={<DateField label="Start date" />}>
+          <TripDatesPicker />
+        </Suspense>
       </section>
 
       <section>
@@ -96,5 +98,61 @@ export function SetupForm() {
         </Button>
       </div>
     </Form>
+  );
+}
+
+function DateField({ label, children }: { label: string; children?: ReactNode }) {
+  return (
+    <label className="inline-flex h-13 min-w-48 items-center gap-3 rounded-md border border-line-strong bg-surface-raised px-4 text-body font-semibold focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brand">
+      <Icon name="calendar-days" size={20} className="text-ink-muted" />
+      <span className="sr-only">{label}</span>
+      {children}
+    </label>
+  );
+}
+
+const dateInputClass = "bg-transparent text-ink outline-none";
+
+/** Sends `start` and `days`; the end date is only how the traveller picks the length, so it has no name. */
+function TripDatesPicker() {
+  const [today] = useState(() => format(new Date(), "yyyy-MM-dd"));
+  const defaults = defaultSettings(today);
+  const [start, setStart] = useState(defaults.startDate);
+  const [days, setDays] = useState(Math.min(defaults.days, MAX_TRIP_DAYS));
+  const end = plusDays(start, days - 1);
+
+  // Moving the start keeps the trip length; the end can only fall within the allowed range.
+  const changeEnd = (value: string) => value && setDays(tripLength(start, value));
+
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <input type="hidden" name="days" value={days} />
+      <DateField label="Start date">
+        <input
+          name="start"
+          type="date"
+          required
+          min={today}
+          value={start}
+          onChange={(e) => e.target.value && setStart(e.target.value)}
+          className={dateInputClass}
+        />
+      </DateField>
+      <span className="text-body text-ink-muted">to</span>
+      <DateField label="End date">
+        <input
+          type="date"
+          required
+          min={start}
+          max={plusDays(start, MAX_TRIP_DAYS - 1)}
+          value={end}
+          onChange={(e) => changeEnd(e.target.value)}
+          className={dateInputClass}
+        />
+      </DateField>
+      <span className="text-caption text-ink-muted">
+        {shortDate(start)} – {shortDate(end)} · {days} {days === 1 ? "day" : "days"} (up to {MAX_TRIP_DAYS})
+      </span>
+    </div>
   );
 }
