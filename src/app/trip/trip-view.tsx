@@ -3,13 +3,15 @@
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BrowseRow, DayColumn, TripHeader, type DaySlot, type DayStop } from "@/components/andiamo";
+import { BrowseRow, DayColumn, TripHeader, type DaySlot, type DayStop, type LegMode } from "@/components/andiamo";
 import { fromSearchParams } from "@/lib/plan/settings";
+import type { Hub } from "@/lib/data/types";
 import type { Plan, Slot, Stop } from "@/lib/plan/types";
-import type { PlaceView } from "@/lib/plan/view";
+import { directionsUrl, type PlaceView } from "@/lib/plan/view";
 import { TripLoading } from "./trip-loading";
 import { TripWait } from "./trip-wait";
 import { formatClock, plusDays, shortDate } from "@/lib/time";
+import type { TravelMode } from "@/lib/geo";
 
 interface PlanResponse {
   plan: Plan;
@@ -88,7 +90,7 @@ export function TripView() {
             eyebrow={`Day ${day.index + 1}${day.excursion ? " · Day trip" : ""}`}
             title={shortDate(day.date)}
             summary={day.area}
-            slots={toSlots(day.stops, places)}
+            slots={toSlots(day.stops, places, plan.hub)}
           />
         ))}
       </div>
@@ -105,15 +107,30 @@ export function TripView() {
   );
 }
 
-function toSlots(stops: Stop[], places: Record<string, PlaceView>): DaySlot[] {
+function toSlots(stops: Stop[], places: Record<string, PlaceView>, hub: Hub): DaySlot[] {
+  // Each leg runs from the last stop that had a place (the scheduler doesn't move for a placeless meal);
+  // the first leg of the day starts at the hotel, which has no address, so Maps starts from the viewer.
+  let from: PlaceView | null = null;
+  const views = new Map<Stop, DayStop>();
+  for (const stop of stops) {
+    const place = stop.placeId ? places[stop.placeId] : undefined;
+    views.set(stop, toDayStop(stop, place, from, hub));
+    if (place) from = place;
+  }
   return SLOT_ORDER.flatMap((slot) => {
     const inSlot = stops.filter((s) => s.slot === slot);
     if (!inSlot.length) return [];
-    return [{ label: SLOT_LABEL[slot], stops: inSlot.map((s) => toDayStop(s, s.placeId ? places[s.placeId] : undefined)) }];
+    return [{ label: SLOT_LABEL[slot], stops: inSlot.map((s) => views.get(s)!) }];
   });
 }
 
-function toDayStop(stop: Stop, place: PlaceView | undefined): DayStop {
+/** The vehicle to name. Venice's local transit is the vaporetto; elsewhere it's a mix of bus, tram and metro. */
+function legMode(mode: TravelMode, hub: Hub): LegMode {
+  if (mode === "transit" && hub === "Venice") return "boat";
+  return mode;
+}
+
+function toDayStop(stop: Stop, place: PlaceView | undefined, from: PlaceView | null, hub: Hub): DayStop {
   return {
     time: formatClock(stop.start),
     title: stop.label,
@@ -127,8 +144,10 @@ function toDayStop(stop: Stop, place: PlaceView | undefined): DayStop {
     leg: stop.travel
       ? {
           minutes: stop.travel.minutes,
-          mode: stop.travel.mode === "walk" ? "walk" : "transit",
-          note: stop.travel.mode === "train" ? "train" : undefined,
+          mode: legMode(stop.travel.mode, hub),
+          directionsUrl: place
+            ? directionsUrl(from?.mapsQuery ?? null, place.mapsQuery, stop.travel.mode === "walk" ? "walking" : "transit")
+            : undefined,
         }
       : undefined,
   };

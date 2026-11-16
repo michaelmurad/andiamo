@@ -10,6 +10,8 @@ export interface PlaceView {
   rating: string;
   price: string;
   duration: string;
+  /** What to search for in Google Maps to find this place. */
+  mapsQuery: string;
 }
 
 const CATEGORY: Record<PlaceType, string> = {
@@ -58,7 +60,29 @@ export function toPlaceView(p: Place): PlaceView {
     rating: p.rating.toFixed(1),
     price: p.priceLevel === 0 ? "Free" : "€".repeat(p.priceLevel),
     duration: formatDuration(p.durationMinutes),
+    mapsQuery: mapsQueryFor(p.name, p.city),
   };
+}
+
+/** A time of day in a name like "Piazza del Popolo at Dawn": the place is the part before it. */
+const TIME_OF_DAY = /^(dawn|dusk|sunrise|sunset|night|aperitivo hour)$/i;
+
+/**
+ * Names like "Gelato at Giolitti" describe a dish at a venue; Maps needs the venue. Names like
+ * "Piazza del Popolo at Dawn" describe a place at a time; Maps needs the place. The city disambiguates.
+ */
+export function mapsQueryFor(name: string, city: string): string {
+  const at = name.lastIndexOf(" at ");
+  const after = name.slice(at + 4);
+  const where = at < 0 ? name : TIME_OF_DAY.test(after) ? name.slice(0, at) : after;
+  return where.toLowerCase().includes(city.toLowerCase()) ? where : `${where}, ${city}`;
+}
+
+/** Google Maps directions between two searches. With no origin, Maps starts from the viewer's location. */
+export function directionsUrl(from: string | null, to: string, mode: "walking" | "transit"): string {
+  const q = new URLSearchParams({ api: "1", destination: to, travelmode: mode });
+  if (from) q.set("origin", from);
+  return `https://www.google.com/maps/dir/?${q}`;
 }
 
 /** Views for every place a plan mentions. */

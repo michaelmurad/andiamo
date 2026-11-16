@@ -1,13 +1,37 @@
-import { Icon } from "./Icon";
+import { Icon, type IconName } from "./Icon";
 
-export interface TravelLegProps { minutes: number; mode?: "walk" | "transit"; note?: string }
+/** How the traveller gets there. "transit" is whatever local bus or tram serves the city; "boat" is Venice's vaporetto. */
+export type LegMode = "walk" | "transit" | "boat" | "train";
 
-export function TravelLeg({ mode = "walk", minutes, note }: TravelLegProps) {
+export interface TravelLegProps {
+  minutes: number;
+  mode?: LegMode;
+  /** Opens turn-by-turn directions for this leg in Google Maps. */
+  directionsUrl?: string;
+}
+
+const LEG: Record<LegMode, { icon: IconName; label: string }> = {
+  walk: { icon: "footprints", label: "walk" },
+  transit: { icon: "bus-front", label: "by transit" },
+  boat: { icon: "ship", label: "by vaporetto" },
+  train: { icon: "train-front", label: "by train" },
+};
+
+/** Times are estimated from straight-line distance (see travel() in src/lib/geo.ts), so they read as approximate. */
+export function TravelLeg({ mode = "walk", minutes, directionsUrl }: TravelLegProps) {
+  const { icon, label } = LEG[mode];
   return (
     <div className="an-leg">
       <span className="an-leg-line" />
-      <Icon name={mode === "transit" ? "tram-front" : "footprints"} size={14} />
-      <span>{minutes} min {mode === "transit" ? "by tram" : "walk"}{note ? ` · ${note}` : ""}</span>
+      <Icon name={icon} size={14} />
+      <span className="an-leg-text" title="Estimated from distance">
+        ~{minutes} min {label}
+      </span>
+      {directionsUrl && (
+        <a className="an-leg-link" href={directionsUrl} target="_blank" rel="noopener noreferrer">
+          Directions
+        </a>
+      )}
     </div>
   );
 }
